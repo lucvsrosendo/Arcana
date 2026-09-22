@@ -1,0 +1,11 @@
+{
+  "nav": {
+    "home": "Home",
+    "reading": "Reading",
+    "history": "History",
+    "journal": "Journal",
+    "arcana": "Arcana",
+    "learn": "Learn",
+    "settings": "Settings"
+  }
+}

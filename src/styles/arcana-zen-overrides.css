@@ -1,0 +1,149 @@
+/* Zen overrides for Arcana page */
+
+.arcana-page .arcana-library-panel,
+.arcana-page .arcana-detail-panel {
+  /* surface polish owned by product-surfaces.css */
+}
+
+.arcana-page .arcana-library-footer {
+  justify-content: flex-end;
+  border-top: 1px solid hsl(var(--border));
+  background: transparent;
+}
+
+.arcana-page .arcana-no-results,
+.arcana-page .zen-empty {
+  border: 1px solid hsl(var(--border) / 0.7);
+  background: hsl(var(--card) / 0.3);
+  box-shadow: none;
+  border-radius: var(--radius-sm);
+}
+
+.arcana-page .arcana-detail-hero {
+  background: transparent;
+}
+
+.arcana-page .arcana-tile-image,
+.arcana-page .arcana-detail-art {
+  border: 2px solid var(--card-ink, #1c1612);
+  border-radius: var(--radius-sm);
+  background: var(--card-paper, #f4ead2);
+  object-fit: cover;
+  box-shadow: 0 12px 28px hsl(var(--foreground) / 0.16);
+}
+
+.arcana-page .arcana-detail-art-frame {
+  background: linear-gradient(180deg, hsl(var(--muted-hsl)), transparent);
+  border-color: hsl(var(--border));
+}
+
+/* Reduced glow on tile selection */
+.arcana-page .arcana-tile-active {
+  box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.2);
+}
+
+.arcana-page .arcana-tile:hover {
+  box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.14);
+}
+
+.arcana-page .arcana-detail-intro h2 {
+  line-height: 1.12;
+  font-weight: 300;
+  letter-spacing: -0.022em;
+}
+
+.arcana-page .arcana-favorite-button {
+  border-radius: var(--radius-sm);
+}
+
+.arcana-page .arcana-range-filters button strong {
+  border-radius: var(--radius-sm);
+}
+
+/* meaning rows — roman numeral marker column */
+.arcana-page .arcana-meaning-row {
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+}
+
+.arcana-page .arcana-meaning-marker {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.05rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-style: normal;
+}
+
+/* Keywords: run-in comma list, not pills */
+.arcana-page .arcana-chip-list {
+  display: block;
+}
+
+.arcana-page .keyword-chip {
+  display: inline;
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.83rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  transition: none;
+  color: hsl(var(--foreground));
+}
+
+.arcana-page .keyword-chip::after {
+  content: ', ';
+  color: hsl(var(--muted-foreground));
+}
+
+.arcana-page .keyword-chip:last-child::after {
+  content: '';
+}
+
+.arcana-page .keyword-chip:hover {
+  transform: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: hsl(var(--foreground) / 0.35);
+}
+
+.arcana-page .keyword-chip.caution {
+  border: none;
+  background: none;
+  color: hsl(var(--foreground) / 0.75);
+}
+
+.arcana-page .keyword-chip.caution:hover {
+  border: none;
+}
+
+/* correspondence-row: dt/dd pair inside a dl */
+.correspondence-row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) minmax(0, 2fr);
+  gap: 0.35rem 0.75rem;
+  align-items: baseline;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.5);
+  font-size: 0.72rem;
+}
+
+.correspondence-row:last-child {
+  border-bottom: 0;
+}
+
+.correspondence-row dt {
+  color: hsl(var(--muted-foreground));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+}
+
+.correspondence-row dd {
+  margin: 0;
+  color: hsl(var(--foreground));
+}

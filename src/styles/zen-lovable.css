@@ -1,0 +1,48 @@
+/* Lovable Zen design utilities — mirrors minimal-arch-zen-226 */
+
+.hero-overlay {
+  background: var(--gradient-overlay);
+}
+
+.zen-section {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+}
+
+.zen-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.zen-accent-bar {
+  height: 1px;
+  background: hsl(var(--foreground) / 0.25);
+}
+
+.zen-xp-mark {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  flex-shrink: 0;
+  background: hsl(var(--foreground) / 0.55);
+}
+
+.zen-xp-bar {
+  height: 0.5rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: hsl(var(--muted-hsl));
+}
+
+.zen-xp-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background: hsl(var(--foreground) / 0.4);
+  transition: width 0.45s var(--ease-ritual);
+}

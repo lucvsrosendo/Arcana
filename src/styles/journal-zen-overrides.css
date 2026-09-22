@@ -1,0 +1,656 @@
+/* Journal – manuscript ritual
+   Reading: redesign-overhaul for tarot readers; Cormorant + hairlines;
+   invite to write; no SaaS card stack. */
+
+.journal-page {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.journal-hero-lede {
+  margin-top: 1rem;
+  max-width: 34rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.journal-hero-lede.is-secondary {
+  margin-top: 0.55rem;
+  font-size: 0.92rem;
+  opacity: 0.9;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+
+.journal-page .journal-layout {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .journal-page .journal-layout {
+    grid-template-columns: minmax(22rem, 28rem) minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+.journal-page .journal-layout::before,
+.journal-page .journal-list::before,
+.journal-page .journal-compose::before,
+.journal-page .journal-compose::after,
+.journal-page .journal-compose-header::before,
+.journal-page .journal-compose-divider,
+.journal-page .journal-list-ornament,
+.journal-page .journal-feature-orbit,
+.journal-page .journal-entry-decoration,
+.journal-page .journal-list-header::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* ── Compose manuscript ─────────────────────────────────────────────────── */
+
+.journal-page .journal-compose {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem 1.3rem 1.35rem;
+  border-radius: var(--radius-sm);
+}
+
+.journal-page .journal-compose-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+}
+
+.journal-page .journal-rail-kicker {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.journal-page .journal-quiet-action {
+  border: 0;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  padding: 0;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.journal-page .journal-quiet-action:hover {
+  color: hsl(var(--foreground));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.journal-page .journal-form {
+  display: grid;
+  gap: 1.05rem;
+  margin: 0;
+}
+
+.journal-page .journal-form-grid {
+  display: grid;
+  gap: 0.95rem;
+}
+
+@media (min-width: 640px) {
+  .journal-page .journal-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.journal-page .journal-field {
+  display: grid;
+  gap: 0.4rem;
+  color: hsl(var(--foreground) / 0.72);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.journal-page .journal-input {
+  width: 100%;
+  min-height: 2.55rem;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+  border-radius: 0;
+  background: transparent;
+  color: hsl(var(--foreground));
+  padding: 0.45rem 0;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  transition:
+    border-color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    box-shadow 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.journal-page .journal-input::placeholder {
+  color: hsl(var(--muted-foreground) / 0.7);
+}
+
+.journal-page .journal-input:focus,
+.journal-page .journal-input:focus-visible {
+  outline: none;
+  border-bottom-color: hsl(var(--primary) / 0.75);
+  box-shadow: 0 1px 0 0 hsl(var(--primary) / 0.45);
+}
+
+.journal-page select.journal-input {
+  cursor: pointer;
+}
+
+.journal-page .journal-input--area {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: 1.55;
+  border: 1px solid hsl(var(--border) / 0.55);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.8rem;
+  background: hsl(var(--background) / 0.35);
+}
+
+.journal-page .journal-input--area:focus,
+.journal-page .journal-input--area:focus-visible {
+  border-color: hsl(var(--primary) / 0.45);
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.35);
+}
+
+/* Signature: open manuscript page for notes */
+.journal-page .journal-field--manuscript {
+  gap: 0.55rem;
+}
+
+.journal-page .journal-manuscript {
+  width: 100%;
+  min-height: 12rem;
+  resize: vertical;
+  border: 1px solid hsl(var(--border) / 0.55);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(
+      165deg,
+      hsl(var(--card) / 0.55) 0%,
+      hsl(var(--background) / 0.4) 100%
+    );
+  color: hsl(var(--foreground));
+  padding: 1rem 1.05rem;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+  text-transform: none;
+  transition:
+    border-color 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    box-shadow 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    background 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    transform 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.journal-page .journal-manuscript::placeholder {
+  color: hsl(var(--muted-foreground) / 0.65);
+  font-style: italic;
+}
+
+.journal-page .journal-manuscript:hover {
+  border-color: hsl(var(--foreground) / 0.22);
+}
+
+.journal-page .journal-manuscript:focus,
+.journal-page .journal-manuscript:focus-visible {
+  outline: none;
+  border-color: hsl(var(--primary) / 0.55);
+  background:
+    linear-gradient(
+      165deg,
+      hsl(var(--card) / 0.72) 0%,
+      hsl(var(--background) / 0.5) 100%
+    );
+  box-shadow:
+    0 0 0 1px hsl(var(--primary) / 0.28),
+    0 18px 40px -28px hsl(var(--foreground) / 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journal-page .journal-manuscript:focus,
+  .journal-page .journal-manuscript:focus-visible {
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.28);
+  }
+}
+
+.journal-page .journal-oracle-row {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.journal-page .journal-oracle-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.55rem;
+  width: 100%;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: hsl(var(--foreground));
+  padding: 0.55rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    background 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.journal-page .journal-oracle-action:hover:not(:disabled) {
+  border-color: hsl(var(--foreground) / 0.35);
+  background: hsl(var(--muted) / 0.25);
+}
+
+.journal-page .journal-oracle-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.journal-page .journal-oracle-hint {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.78rem;
+  line-height: 1.45;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.journal-page .journal-oracle-error {
+  margin: 0;
+  color: hsl(var(--destructive));
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.journal-page .journal-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.journal-page .journal-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.7rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 0.55rem 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    transform 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    opacity 220ms ease;
+}
+
+.journal-page .journal-submit:hover {
+  opacity: 0.92;
+}
+
+.journal-page .journal-submit:active {
+  transform: scale(0.98);
+}
+
+.journal-page .journal-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring) / 0.65);
+}
+
+/* ── Privacy ────────────────────────────────────────────────────────────── */
+
+.journal-page .journal-privacy {
+  border-top: 1px solid hsl(var(--border) / 0.55);
+  padding-top: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.journal-page .journal-privacy-trigger {
+  padding-block: 0.85rem !important;
+}
+
+.journal-page .journal-privacy-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.journal-page .journal-privacy-body {
+  display: grid;
+  gap: 0.55rem;
+  padding-bottom: 0.85rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.journal-page .journal-privacy-body p {
+  margin: 0;
+}
+
+.journal-page .journal-privacy-label {
+  margin-top: 0.35rem !important;
+  color: hsl(var(--foreground) / 0.75);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── List / stream ──────────────────────────────────────────────────────── */
+
+.journal-page .journal-list {
+  display: grid;
+  gap: 1.15rem;
+  min-width: 0;
+}
+
+.journal-page .journal-list-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+}
+
+.journal-page .journal-list-count {
+  margin: 0.35rem 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.82rem;
+}
+
+.journal-page .journal-count-value {
+  color: hsl(var(--foreground));
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.journal-page .journal-list-sort {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.journal-page .journal-filters {
+  display: grid;
+  gap: 0.95rem;
+}
+
+@media (min-width: 640px) {
+  .journal-page .journal-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.journal-page .journal-date-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.journal-page .journal-date-trigger {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 2.55rem;
+  border-radius: 0 !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 1px solid hsl(var(--border) / 0.7) !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-weight: 400;
+  box-shadow: none !important;
+}
+
+.journal-page .journal-stream {
+  display: grid;
+  gap: 0;
+}
+
+.journal-page .journal-entry {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 1.15rem 0;
+  border-top: 1px solid hsl(var(--border) / 0.45);
+  transition: background 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.journal-page .journal-entry:first-child {
+  border-top: 0;
+  padding-top: 0.35rem;
+}
+
+.journal-page .journal-entry-mark {
+  color: hsl(var(--muted-foreground) / 0.7);
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding-top: 0.15rem;
+}
+
+.journal-page .journal-entry-main {
+  min-width: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.journal-page .journal-entry-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+}
+
+.journal-page .journal-entry-heading {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.journal-page .journal-entry-date {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.journal-page .journal-entry-title {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.journal-page .journal-linked-reading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.15rem 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.78rem;
+}
+
+.journal-page .journal-entry-tags {
+  margin: 0.15rem 0 0;
+  color: hsl(var(--muted-foreground) / 0.85);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.journal-page .journal-entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+}
+
+.journal-page .journal-entry-action {
+  border: 0;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  padding: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.journal-page .journal-entry-action:hover {
+  color: hsl(var(--foreground));
+}
+
+.journal-page .journal-entry-action.is-danger:hover {
+  color: hsl(var(--destructive));
+}
+
+.journal-page .journal-entry-body-stack {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.journal-page .journal-entry-section {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.journal-page .journal-section-label {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.journal-page .journal-entry-body {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.92rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.journal-page .journal-entry-section.is-manifestation {
+  border-left: 2px solid hsl(var(--primary) / 0.45);
+  padding-left: 0.85rem;
+}
+
+.journal-page .journal-entry-section.is-manifestation .journal-entry-body {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: hsl(var(--foreground) / 0.88);
+}
+
+/* ── Empty + pagination ─────────────────────────────────────────────────── */
+
+.journal-page .journal-empty {
+  display: grid;
+  gap: 1.1rem;
+  justify-items: start;
+  padding: 1.25rem 0 0.5rem;
+}
+
+.journal-page .journal-empty-inner,
+.journal-page .zen-empty.journal-empty-inner {
+  width: 100%;
+  align-items: flex-start;
+  text-align: left;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.25rem 0;
+  box-shadow: none;
+}
+
+.journal-page .journal-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid hsl(var(--border) / 0.45);
+}
+
+.journal-page .journal-page-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  padding: 0.35rem 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 220ms ease;
+}
+
+.journal-page .journal-page-action:hover:not(:disabled) {
+  color: hsl(var(--foreground));
+}
+
+.journal-page .journal-page-action:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.journal-page .journal-page-meta {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}

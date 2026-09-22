@@ -1,0 +1,747 @@
+/* Cabinet du lecteur — Settings ritual surface
+   Scoped to .settings-page. Matches History / Journal / Auth hairlines. */
+
+.settings-page {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.settings-hero-lede {
+  margin-top: 1rem;
+  max-width: 36rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.settings-hero-kicker {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* ── Editorial tabs ─────────────────────────────────────────────────────── */
+
+.settings-page .settings-tabs {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.settings-page [role="tablist"] {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  gap: 0 !important;
+  justify-content: flex-start !important;
+}
+
+.settings-page [role="tab"] {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  padding: 0.55rem 1.05rem 0.5rem !important;
+  margin-bottom: -1px !important;
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  box-shadow: none !important;
+  transition:
+    color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    border-color 220ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)) !important;
+}
+
+.settings-page [role="tab"][data-state="active"] {
+  background: transparent !important;
+  color: hsl(var(--foreground)) !important;
+  border-bottom-color: hsl(var(--foreground)) !important;
+  box-shadow: none !important;
+}
+
+.settings-page [role="tab"]:focus-visible {
+  outline: none !important;
+  box-shadow: inset 0 -2px 0 hsl(var(--ring) / 0.7) !important;
+}
+
+.settings-tab-panel {
+  margin-top: 0 !important;
+}
+
+/* ── Cabinet surface — atelier glass ────────────────────────────────────── */
+
+.app-shell:not(.is-home) .settings-page .settings-cabinet,
+.app-shell:not(.is-home) .settings-page .settings-guest-plate,
+.app-shell:not(.is-home) .settings-page .settings-privacy {
+  background:
+    linear-gradient(145deg, hsl(var(--foreground) / 0.05), transparent 42%),
+    hsl(var(--card) / 0.28);
+  border: 1px solid hsl(var(--border) / 0.45);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.12),
+    0 14px 40px -30px hsl(var(--foreground) / 0.28);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  transition:
+    border-color 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    background 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    box-shadow 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+}
+
+.settings-cabinet {
+  display: grid;
+  gap: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .settings-cabinet:not(.settings-cabinet--stack) {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  }
+}
+
+.settings-cabinet--stack {
+  grid-template-columns: 1fr;
+}
+
+.settings-identity,
+.settings-xp-panel,
+.settings-rail-block {
+  padding: 1.35rem 1.4rem;
+}
+
+.settings-identity {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.settings-xp-panel {
+  display: grid;
+  gap: 0.95rem;
+  align-content: start;
+  border-top: 1px solid hsl(var(--border) / 0.4);
+  background: linear-gradient(
+    180deg,
+    hsl(var(--foreground) / 0.03),
+    transparent 55%
+  );
+}
+
+@media (min-width: 768px) {
+  .settings-xp-panel {
+    border-top: 0;
+    border-left: 1px solid hsl(var(--border) / 0.4);
+    background: linear-gradient(
+      90deg,
+      hsl(var(--foreground) / 0.035),
+      transparent 48%
+    );
+  }
+}
+
+.settings-rail-block + .settings-rail-block {
+  border-top: 1px solid hsl(var(--border) / 0.4);
+}
+
+.settings-rail-kicker {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.settings-rail-lede {
+  margin: 0.35rem 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.settings-rail-head {
+  padding-bottom: 1rem;
+}
+
+/* ── Identity ───────────────────────────────────────────────────────────── */
+
+.settings-identity-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.settings-avatar {
+  width: 4rem !important;
+  height: 4rem !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid hsl(var(--border) / 0.55);
+  background:
+    linear-gradient(145deg, hsl(var(--foreground) / 0.08), transparent 55%),
+    hsl(var(--muted-hsl) / 0.35);
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.1);
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+}
+
+.settings-avatar img {
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.settings-identity-name {
+  margin: 0;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.settings-identity-email {
+  margin: 0.2rem 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+.settings-identity-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  margin-top: 0.65rem;
+}
+
+.settings-avatar-drop.is-active {
+  outline: 1px solid hsl(var(--primary) / 0.45);
+  outline-offset: 3px;
+}
+
+.settings-quiet-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  padding: 0;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.settings-quiet-action:hover {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.settings-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.settings-field label {
+  color: hsl(var(--foreground) / 0.72);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.settings-field-input {
+  border-radius: var(--radius-sm) !important;
+  background: hsl(var(--background) / 0.28) !important;
+  border-color: hsl(var(--border) / 0.55) !important;
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+}
+
+.settings-primary-action {
+  justify-self: start;
+  min-height: 2.55rem;
+  border-radius: var(--radius-sm) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.14),
+    0 10px 28px -18px hsl(var(--primary) / 0.55);
+}
+
+.settings-xp-hint {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.settings-xp-rules,
+.settings-event-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.settings-xp-rules li,
+.settings-event-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid hsl(var(--border) / 0.35);
+  border-radius: calc(var(--radius-sm) - 2px);
+  background: hsl(var(--background) / 0.22);
+  color: hsl(var(--muted-foreground));
+  font-size: 0.82rem;
+}
+
+.settings-xp-points {
+  color: hsl(var(--foreground));
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 0.98rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.settings-arcana-ref {
+  margin: 0;
+  color: hsl(var(--primary) / 0.85);
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+}
+
+/* ── Flush trophy shells inside cabinet ─────────────────────────────────── */
+
+.settings-surface-flush,
+.settings-trophy-block {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.settings-trophy-head {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.settings-trophy-sub {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.settings-leaderboard {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.settings-leaderboard li {
+  display: grid;
+  grid-template-columns: 2rem 2rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.settings-leaderboard-rank {
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+}
+
+.settings-leaderboard-name {
+  font-size: 0.88rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard-avatar {
+  border-radius: var(--radius-sm) !important;
+}
+
+.settings-achievement,
+.settings-achievement-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.settings-achievement-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex-shrink: 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: transparent;
+  font-size: 0;
+}
+
+.settings-achievement-title {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.settings-page [role="status"] {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.settings-page [role="progressbar"] {
+  height: 0.45rem !important;
+  background: hsl(var(--border) / 0.4) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+}
+
+.settings-page [role="progressbar"] > div {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary) / 0.75),
+    hsl(var(--foreground) / 0.55)
+  ) !important;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* ── Badge marks (editorial, not trophy tiles) ──────────────────────────── */
+
+.settings-badge-marks {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .settings-badge-marks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.settings-badge-mark {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.15rem 0;
+  cursor: default;
+}
+
+.settings-badge-mark.is-locked {
+  opacity: 0.55;
+}
+
+.settings-badge-roman {
+  display: inline-flex;
+  min-width: 2rem;
+  justify-content: center;
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.settings-badge-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.settings-badge-desc {
+  margin: 0.2rem 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* ── Comments list ──────────────────────────────────────────────────────── */
+
+.settings-comment-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+
+.settings-comment-row {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid hsl(var(--border) / 0.45);
+}
+
+.settings-comment-row:first-child {
+  border-top: 0;
+  padding-top: 0.15rem;
+}
+
+.settings-comment-index {
+  color: hsl(var(--muted-foreground) / 0.7);
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+}
+
+.settings-comment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.settings-comment-title {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.settings-comment-meta time {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.75rem;
+}
+
+.settings-comment-body p {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.settings-empty {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.86rem;
+}
+
+/* ── Guest plate ────────────────────────────────────────────────────────── */
+
+.settings-guest-plate {
+  border-radius: var(--radius-sm);
+  padding: 1.2rem 1.3rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.settings-guest-plate p {
+  margin: 0;
+}
+
+/* ── Preference / session rows ──────────────────────────────────────────── */
+
+.settings-row-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .settings-row-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.settings-row {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.settings-row label {
+  color: hsl(var(--foreground) / 0.72);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.settings-select {
+  border-radius: var(--radius-sm) !important;
+  background: hsl(var(--background) / 0.28) !important;
+  border-color: hsl(var(--border) / 0.55) !important;
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+}
+
+.settings-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem 1.25rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid hsl(var(--border) / 0.45);
+}
+
+.settings-action-row:first-of-type {
+  border-top: 0;
+  padding-top: 0.2rem;
+}
+
+.settings-action-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: hsl(var(--foreground));
+}
+
+.settings-action-title {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.settings-action-title.is-danger {
+  color: hsl(var(--destructive));
+}
+
+.settings-action-desc {
+  margin: 0.2rem 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.settings-row-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.35rem;
+  border: 1px solid hsl(var(--border) / 0.5);
+  border-radius: var(--radius-sm);
+  background: hsl(var(--background) / 0.22);
+  color: hsl(var(--foreground));
+  padding: 0.4rem 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.06);
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    background 200ms ease;
+}
+
+.settings-row-action:hover {
+  border-color: hsl(var(--foreground) / 0.35);
+  background: hsl(var(--muted-hsl) / 0.28);
+}
+
+.settings-row-action.is-danger {
+  border-color: hsl(var(--destructive) / 0.45);
+  color: hsl(var(--destructive));
+}
+
+.settings-row-action.is-danger:hover {
+  background: hsl(var(--destructive) / 0.08);
+}
+
+.settings-mode-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+
+.settings-mode-toggle {
+  border-radius: var(--radius-sm) !important;
+  font-size: 0.8rem !important;
+  background: hsl(var(--background) / 0.22) !important;
+  border-color: hsl(var(--border) / 0.5) !important;
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.06);
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.settings-mode-toggle[data-state="on"] {
+  background: hsl(var(--primary) / 0.18) !important;
+  border-color: hsl(var(--primary) / 0.45) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* ── LGPD privacy accordion ─────────────────────────────────────────────── */
+
+.settings-privacy {
+  border-radius: var(--radius-sm);
+  padding: 0 1.15rem;
+}
+
+.settings-privacy-trigger {
+  padding-block: 1.05rem !important;
+}
+
+.settings-privacy-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  text-align: left;
+  color: hsl(var(--muted-foreground));
+}
+
+.settings-privacy-body {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: 1rem;
+}
+
+/* ── Leaderboard square avatars inside settings ─────────────────────────── */
+
+.settings-page .settings-surface-flush .rounded-full,
+.settings-page .leaderboard-avatar {
+  border-radius: var(--radius-sm) !important;
+}
+
+.settings-page .settings-xp-panel .font-medium {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .app-shell:not(.is-home) .settings-page .settings-cabinet,
+  .app-shell:not(.is-home) .settings-page .settings-guest-plate,
+  .app-shell:not(.is-home) .settings-page .settings-privacy {
+    background: hsl(var(--card) / 0.92);
+    border: 1px solid hsl(var(--border) / 0.85);
+    box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

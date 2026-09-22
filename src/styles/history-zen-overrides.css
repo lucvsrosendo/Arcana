@@ -1,0 +1,157 @@
+/* ── History page – chronicle overrides ──────────────────────────────────── */
+
+/* ── 1. Hero grid ────────────────────────────────────────────────────────── */
+.history-page .history-hero {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .history-page .history-hero {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.history-page .history-hero::after {
+  display: none;
+}
+
+.history-page .history-hero-symbol,
+.history-page .history-hero-orbit,
+.history-page .history-footer-ornament {
+  display: none !important;
+}
+
+.history-page .history-hero-copy {
+  max-width: none;
+}
+
+.history-page .history-hero-lede {
+  margin-top: 0.75rem;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+
+/* ── 2. Summary panels and records – flat plate frame ───────────────────── */
+.history-page .history-summary-panel,
+.history-page .history-record {
+  /* surface polish owned by product-surfaces.css */
+}
+
+/* ── 3. Empty state ──────────────────────────────────────────────────────── */
+.history-page .history-empty-state,
+.history-page .zen-empty {
+  border: 1px solid hsl(var(--border) / 0.7);
+  background: hsl(var(--card) / 0.3);
+  box-shadow: none;
+  border-radius: var(--radius-sm);
+}
+
+/* ── 4. Record index marks ───────────────────────────────────────────────── */
+.history-page .history-record-mark {
+  border-color: hsl(var(--border));
+  background: hsl(var(--muted) / 0.3);
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-display, ui-serif, Georgia, serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── 5. Frequency list card thumbnails ───────────────────────────────────── */
+.history-page .history-frequency-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.history-page .history-frequency-row img {
+  width: 1.85rem;
+  height: 2.775rem;
+  object-fit: cover;
+  border-radius: 0.18rem;
+  border: 1px solid hsl(var(--border));
+  flex-shrink: 0;
+}
+
+/* ── 6. Export buttons – discrete outline style ──────────────────────────── */
+.history-page .history-record-actions {
+  display: grid;
+  gap: 0;
+}
+
+.history-page .history-export-action {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid hsl(var(--border) / 0.45);
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  padding: 0.65rem 0.1rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 280ms var(--ease-ritual);
+}
+
+.history-page .history-export-action:first-child {
+  border-top: 0;
+  padding-top: 0.2rem;
+}
+
+.history-page .history-export-action:hover,
+.history-page .history-export-action:focus-visible {
+  color: hsl(var(--foreground));
+  outline: none;
+}
+
+.history-page .history-export-action:focus-visible {
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.5);
+  border-radius: var(--radius-sm);
+}
+
+.history-page .history-frequency-count {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.history-page .history-frequency-name span {
+  display: block;
+  height: 1px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+  background: hsl(var(--border) / 0.55);
+}
+
+.history-page .history-frequency-name span i {
+  display: block;
+  height: 100%;
+  background: hsl(var(--primary));
+  box-shadow: none;
+}
+
+.history-page .history-record-mark {
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.history-page .history-summary-panel .text-base {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}

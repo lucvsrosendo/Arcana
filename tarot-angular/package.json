@@ -1,0 +1,22 @@
+{
+  "name": "tarot-angular-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @tarot/web",
+    "dev:admin": "npm run dev -w @tarot/admin",
+    "build": "npm run build -w @tarot/core && npm run build -w @tarot/web && npm run build -w @tarot/admin",
+    "build:web": "npm run build -w @tarot/web",
+    "build:admin": "npm run build -w @tarot/admin",
+    "test": "npm run test -w @tarot/core",
+    "lint": "echo \"lint skipped\""
+  },
+  "engines": {
+    "node": ">=20.19.1"
+  }
+}

@@ -1,0 +1,89 @@
+/* Editorial type polish — product pages (not home) */
+
+.app-shell:not(.is-home) p,
+.app-shell:not(.is-home) li,
+.app-shell:not(.is-home) dd,
+.app-shell:not(.is-home) .text-muted,
+.app-shell:not(.is-home) .text-muted-foreground {
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.app-shell:not(.is-home) h1.font-display,
+.app-shell:not(.is-home) h1.text-architectural,
+.app-shell:not(.is-home) h2.font-display,
+.app-shell:not(.is-home) h2.text-architectural,
+.app-shell:not(.is-home) h3.font-display {
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+.app-shell:not(.is-home) .text-minimal,
+.app-shell:not(.is-home) .page-kicker,
+.app-shell:not(.is-home) .label-text,
+.app-shell:not(.is-home) .reading-rail-kicker {
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.app-shell:not(.is-home) .page-kicker,
+.app-shell:not(.is-home) .label-text {
+  max-width: 65ch;
+}
+
+.app-shell:not(.is-home) .tabular-nums,
+.app-shell:not(.is-home) .history-progress-count,
+.app-shell:not(.is-home) .reading-progress-fraction,
+.app-shell:not(.is-home) .chat-status-count,
+.app-shell:not(.is-home) .journal-count-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell:not(.is-home) .zen-empty {
+  gap: 0.85rem;
+}
+
+.app-shell:not(.is-home) .zen-empty-mark {
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid hsl(var(--primary) / 0.7);
+  transform: rotate(45deg);
+  opacity: 0.85;
+}
+
+.app-shell:not(.is-home) .zen-empty p,
+.app-shell:not(.is-home) .history-empty-copy,
+.app-shell:not(.is-home) .journal-empty-state p {
+  max-width: 42ch;
+  line-height: 1.65;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Soften over-tracked uppercase chrome inside panels */
+.app-shell:not(.is-home) .chat-ai-badge,
+.app-shell:not(.is-home) .reading-deck-drawer summary,
+.app-shell:not(.is-home) .reading-mode-tabs button {
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.app-shell:not(.is-home) .reading-mode-tabs button {
+  font-size: 0.72rem;
+}
+
+/* Body copy in learning / about / journal */
+.app-shell:not(.is-home) .learning-intro-copy,
+.app-shell:not(.is-home) .history-hero-copy p,
+.app-shell:not(.is-home) .arcana-detail-intro p {
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .app-shell:not(.is-home) h1.font-display {
+    text-wrap: balance;
+  }
+}

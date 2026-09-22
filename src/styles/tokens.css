@@ -1,0 +1,433 @@
+/* Hybrid tokens: Tarot RGB + shadcn HSL — minimal zen variants */
+
+:root,
+:root[data-theme="classic"] {
+  --bg: 14 14 16;
+  --surface: 24 24 27;
+  --surface-strong: 36 36 40;
+  --text: 250 250 252;
+  --muted: 161 161 170;
+  --line: 63 63 70;
+  --accent: 122 108 154;
+  --second: 113 113 122;
+  --warm: 190 90 90;
+  --paper: 250 250 252;
+  --paper-ink: 24 24 27;
+  --paper-muted: 113 113 122;
+  --accent-soft: 122 108 154;
+  --background: 240 6% 6%;
+  --foreground: 0 0% 98%;
+  --card: 240 4% 10%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 4% 10%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 272 28% 58%;
+  --primary-foreground: 240 6% 6%;
+  --secondary: 240 4% 14%;
+  --secondary-foreground: 0 0% 98%;
+  --muted-hsl: 240 4% 14%;
+  --muted-foreground: 240 5% 65%;
+  --accent-hsl: 272 14% 16%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 4% 20%;
+  --input: 240 4% 16%;
+  --ring: 272 28% 58%;
+  color-scheme: dark;
+}
+
+:root[data-theme="lunar"] {
+  --bg: 10 12 22;
+  --surface: 18 22 38;
+  --surface-strong: 28 34 58;
+  --text: 240 244 255;
+  --muted: 164 176 210;
+  --line: 72 82 120;
+  --accent: 164 184 230;
+  --second: 100 200 210;
+  --warm: 190 120 170;
+  --paper: 240 244 255;
+  --paper-ink: 18 22 38;
+  --paper-muted: 100 110 140;
+  --accent-soft: 164 184 230;
+  --background: 230 35% 8%;
+  --foreground: 220 30% 96%;
+  --card: 230 28% 12%;
+  --card-foreground: 220 30% 96%;
+  --popover: 230 28% 12%;
+  --popover-foreground: 220 30% 96%;
+  --primary: 220 55% 78%;
+  --primary-foreground: 230 35% 8%;
+  --secondary: 230 22% 16%;
+  --secondary-foreground: 220 30% 96%;
+  --muted-hsl: 230 22% 16%;
+  --muted-foreground: 220 18% 68%;
+  --accent-hsl: 230 20% 20%;
+  --accent-foreground: 220 30% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 230 18% 22%;
+  --input: 230 20% 18%;
+  --ring: 220 55% 78%;
+  color-scheme: dark;
+}
+
+:root[data-theme="golden"] {
+  --bg: 18 14 10;
+  --surface: 32 26 18;
+  --surface-strong: 48 38 26;
+  --text: 255 248 235;
+  --muted: 200 180 150;
+  --line: 120 95 60;
+  --accent: 220 175 90;
+  --second: 100 175 150;
+  --warm: 185 95 70;
+  --paper: 255 248 235;
+  --paper-ink: 32 26 18;
+  --paper-muted: 120 100 75;
+  --accent-soft: 220 175 90;
+  --background: 30 25% 8%;
+  --foreground: 40 30% 96%;
+  --card: 30 20% 12%;
+  --card-foreground: 40 30% 96%;
+  --popover: 30 20% 12%;
+  --popover-foreground: 40 30% 96%;
+  --primary: 38 65% 61%;
+  --primary-foreground: 30 25% 8%;
+  --secondary: 30 18% 16%;
+  --secondary-foreground: 40 30% 96%;
+  --muted-hsl: 30 18% 16%;
+  --muted-foreground: 35 20% 68%;
+  --accent-hsl: 30 16% 20%;
+  --accent-foreground: 40 30% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 30 15% 22%;
+  --input: 30 16% 18%;
+  --ring: 38 65% 61%;
+  color-scheme: dark;
+}
+
+:root[data-theme="minimal"] {
+  --bg: 255 255 255;
+  --surface: 255 255 255;
+  --surface-strong: 245 245 245;
+  --text: 0 0 0;
+  --muted: 51 51 51;
+  --line: 230 230 230;
+  --accent: 0 0 0;
+  --second: 51 51 51;
+  --warm: 220 38 38;
+  --paper: 255 255 255;
+  --paper-ink: 0 0 0;
+  --paper-muted: 51 51 51;
+  --accent-soft: 0 0 0;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 100%;
+  --secondary-foreground: 0 0% 0%;
+  --muted-hsl: 0 0% 96%;
+  --muted-foreground: 0 0% 20%;
+  --accent-hsl: 0 0% 95%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 90%;
+  --input: 0 0% 95%;
+  --ring: 0 0% 0%;
+  --gradient-hero: linear-gradient(135deg, hsl(0 0% 0% / 0.8), hsl(0 0% 0% / 0.4));
+  --gradient-overlay: linear-gradient(180deg, hsl(0 0% 0% / 0.9), hsl(0 0% 0% / 0.1));
+  --shadow-architectural: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
+  --shadow-elegant: 0 10px 30px -10px hsl(0 0% 0% / 0.15);
+  color-scheme: light;
+}
+
+:root[data-theme="solar"] {
+  --bg: 22 14 10;
+  --surface: 42 28 18;
+  --surface-strong: 62 40 24;
+  --text: 255 250 235;
+  --muted: 210 185 150;
+  --line: 180 130 70;
+  --accent: 245 185 85;
+  --second: 95 190 170;
+  --warm: 200 90 75;
+  --paper: 255 250 235;
+  --paper-ink: 42 28 18;
+  --paper-muted: 130 100 70;
+  --accent-soft: 245 185 85;
+  --background: 25 30% 8%;
+  --foreground: 40 40% 96%;
+  --card: 25 25% 12%;
+  --card-foreground: 40 40% 96%;
+  --popover: 25 25% 12%;
+  --popover-foreground: 40 40% 96%;
+  --primary: 38 90% 65%;
+  --primary-foreground: 25 30% 8%;
+  --secondary: 25 20% 16%;
+  --secondary-foreground: 40 40% 96%;
+  --muted-hsl: 25 20% 16%;
+  --muted-foreground: 35 25% 68%;
+  --accent-hsl: 25 18% 20%;
+  --accent-foreground: 40 40% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 25 18% 22%;
+  --input: 25 18% 18%;
+  --ring: 38 90% 65%;
+  color-scheme: dark;
+}
+
+:root[data-theme="forest"] {
+  --bg: 10 18 16;
+  --surface: 18 34 30;
+  --surface-strong: 28 52 44;
+  --text: 235 245 235;
+  --muted: 165 190 175;
+  --line: 90 130 110;
+  --accent: 165 200 125;
+  --second: 100 190 165;
+  --warm: 190 100 85;
+  --paper: 240 246 235;
+  --paper-ink: 18 34 30;
+  --paper-muted: 90 115 95;
+  --accent-soft: 165 200 125;
+  --background: 160 25% 8%;
+  --foreground: 140 20% 96%;
+  --card: 160 22% 12%;
+  --card-foreground: 140 20% 96%;
+  --popover: 160 22% 12%;
+  --popover-foreground: 140 20% 96%;
+  --primary: 100 35% 64%;
+  --primary-foreground: 160 25% 8%;
+  --secondary: 160 18% 16%;
+  --secondary-foreground: 140 20% 96%;
+  --muted-hsl: 160 18% 16%;
+  --muted-foreground: 150 15% 68%;
+  --accent-hsl: 160 16% 20%;
+  --accent-foreground: 140 20% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 160 15% 22%;
+  --input: 160 16% 18%;
+  --ring: 100 35% 64%;
+  color-scheme: dark;
+}
+
+:root[data-theme="rose"] {
+  --bg: 20 12 18;
+  --surface: 38 24 34;
+  --surface-strong: 58 36 50;
+  --text: 255 240 245;
+  --muted: 210 175 190;
+  --line: 170 120 145;
+  --accent: 235 165 190;
+  --second: 130 200 190;
+  --warm: 220 100 120;
+  --paper: 255 240 245;
+  --paper-ink: 38 24 34;
+  --paper-muted: 130 95 110;
+  --accent-soft: 235 165 190;
+  --background: 320 25% 8%;
+  --foreground: 340 30% 96%;
+  --card: 320 22% 12%;
+  --card-foreground: 340 30% 96%;
+  --popover: 320 22% 12%;
+  --popover-foreground: 340 30% 96%;
+  --primary: 340 65% 78%;
+  --primary-foreground: 320 25% 8%;
+  --secondary: 320 18% 16%;
+  --secondary-foreground: 340 30% 96%;
+  --muted-hsl: 320 18% 16%;
+  --muted-foreground: 330 18% 68%;
+  --accent-hsl: 320 16% 20%;
+  --accent-foreground: 340 30% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 320 15% 22%;
+  --input: 320 16% 18%;
+  --ring: 340 65% 78%;
+  color-scheme: dark;
+}
+
+:root[data-theme="abyss"] {
+  --bg: 6 8 16;
+  --surface: 12 18 32;
+  --surface-strong: 20 30 52;
+  --text: 230 238 255;
+  --muted: 155 170 200;
+  --line: 80 110 165;
+  --accent: 130 170 235;
+  --second: 100 210 195;
+  --warm: 200 100 130;
+  --paper: 232 238 255;
+  --paper-ink: 12 18 32;
+  --paper-muted: 80 95 125;
+  --accent-soft: 130 170 235;
+  --background: 225 40% 6%;
+  --foreground: 220 30% 96%;
+  --card: 225 32% 10%;
+  --card-foreground: 220 30% 96%;
+  --popover: 225 32% 10%;
+  --popover-foreground: 220 30% 96%;
+  --primary: 220 70% 72%;
+  --primary-foreground: 225 40% 6%;
+  --secondary: 225 26% 14%;
+  --secondary-foreground: 220 30% 96%;
+  --muted-hsl: 225 26% 14%;
+  --muted-foreground: 220 18% 68%;
+  --accent-hsl: 225 22% 18%;
+  --accent-foreground: 220 30% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 225 20% 20%;
+  --input: 225 22% 16%;
+  --ring: 220 70% 72%;
+  color-scheme: dark;
+}
+
+:root[data-theme="aurora"] {
+  --bg: 10 14 24;
+  --surface: 20 32 42;
+  --surface-strong: 34 50 64;
+  --text: 240 248 245;
+  --muted: 175 200 195;
+  --line: 120 175 160;
+  --accent: 160 220 185;
+  --second: 175 155 235;
+  --warm: 225 120 140;
+  --paper: 240 248 245;
+  --paper-ink: 20 32 42;
+  --paper-muted: 95 115 115;
+  --accent-soft: 160 220 185;
+  --background: 200 30% 8%;
+  --foreground: 160 20% 96%;
+  --card: 200 26% 12%;
+  --card-foreground: 160 20% 96%;
+  --popover: 200 26% 12%;
+  --popover-foreground: 160 20% 96%;
+  --primary: 155 55% 75%;
+  --primary-foreground: 200 30% 8%;
+  --secondary: 200 22% 16%;
+  --secondary-foreground: 160 20% 96%;
+  --muted-hsl: 200 22% 16%;
+  --muted-foreground: 180 15% 68%;
+  --accent-hsl: 200 18% 20%;
+  --accent-foreground: 160 20% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 200 16% 22%;
+  --input: 200 18% 18%;
+  --ring: 155 55% 75%;
+  color-scheme: dark;
+}
+
+:root[data-theme="ritual"] {
+  --bg: 14 10 12;
+  --surface: 32 20 26;
+  --surface-strong: 50 30 38;
+  --text: 252 238 225;
+  --muted: 200 175 155;
+  --line: 150 115 80;
+  --accent: 220 168 100;
+  --second: 110 190 175;
+  --warm: 195 70 80;
+  --paper: 252 238 225;
+  --paper-ink: 32 20 26;
+  --paper-muted: 115 85 75;
+  --accent-soft: 220 168 100;
+  --background: 350 20% 8%;
+  --foreground: 35 30% 96%;
+  --card: 350 18% 12%;
+  --card-foreground: 35 30% 96%;
+  --popover: 350 18% 12%;
+  --popover-foreground: 35 30% 96%;
+  --primary: 35 65% 63%;
+  --primary-foreground: 350 20% 8%;
+  --secondary: 350 16% 16%;
+  --secondary-foreground: 35 30% 96%;
+  --muted-hsl: 350 16% 16%;
+  --muted-foreground: 30 18% 68%;
+  --accent-hsl: 350 14% 20%;
+  --accent-foreground: 35 30% 96%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 350 14% 22%;
+  --input: 350 14% 18%;
+  --ring: 35 65% 63%;
+  color-scheme: dark;
+}
+
+:root {
+  /* Editorial Ritual — shared geometry (all themes inherit) */
+  --font-sans:
+    "Plus Jakarta Sans Variable", "Plus Jakarta Sans", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, Cambria, "Times New Roman", serif;
+  /* Shape lock: 8px content / pill for CTAs only */
+  --radius: 0.5rem;
+  --radius-sm: 0.375rem;
+  --radius-lg: 0.75rem;
+  --radius-pill: 9999px;
+  --card-paper: #f4ead2;
+  --card-ink: #1c1612;
+  --space-compact: 0.75rem;
+  --space-default: 1.25rem;
+  --space-section: clamp(4rem, 8vw, 7rem);
+  --type-display: clamp(2.5rem, 5.5vw, 4.5rem);
+  --type-title: clamp(1.75rem, 3vw, 2.75rem);
+  --type-body: 1rem;
+  --type-caption: 0.75rem;
+  --z-base: 0;
+  --z-sticky: 40;
+  --z-nav: 50;
+  --z-overlay: 60;
+  --z-modal: 70;
+  --z-toast: 80;
+  --ease-ritual: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --focus-ring: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  --rule: 1px solid hsl(var(--border));
+  --gradient-hero: linear-gradient(135deg, hsl(var(--foreground) / 0.55), hsl(var(--foreground) / 0.08));
+  --gradient-overlay: linear-gradient(180deg, hsl(var(--foreground) / 0.55), transparent 70%);
+  --shadow-architectural: 0 18px 40px -18px hsl(var(--foreground) / 0.14);
+  --shadow-elegant: 0 8px 24px -12px hsl(var(--foreground) / 0.1);
+  --transition-smooth:
+    color 0.35s var(--ease-ritual), border-color 0.35s var(--ease-ritual),
+    background-color 0.35s var(--ease-ritual), opacity 0.35s var(--ease-ritual),
+    transform 0.35s var(--ease-ritual);
+  --transition-fast:
+    color 0.18s var(--ease-ritual), border-color 0.18s var(--ease-ritual),
+    background-color 0.18s var(--ease-ritual), opacity 0.18s var(--ease-ritual),
+    transform 0.18s var(--ease-ritual);
+  --sidebar-background: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent-hsl);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  background: hsl(var(--background));
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}

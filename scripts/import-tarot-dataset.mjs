@@ -1,0 +1,306 @@
+/**
+ * Downloads ekelen/tarot-api card_data.json and generates minorArcana + fullDeck modules.
+ * Source: https://github.com/ekelen/tarot-api (Rider-Waite-Smith, public domain images)
+ *
+ * Usage: node scripts/import-tarot-dataset.mjs
+ */
+
+import { writeFileSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, "..");
+const SOURCE_URL =
+  "https://raw.githubusercontent.com/ekelen/tarot-api/main/static/card_data.json";
+
+const SUIT_PREFIX = {
+  wands: "wa",
+  cups: "cu",
+  swords: "sw",
+  pentacles: "pe",
+};
+
+const SUIT_NAMES = {
+  wands: "Wands",
+  cups: "Cups",
+  swords: "Swords",
+  pentacles: "Pentacles",
+};
+
+const RANK_NAMES = {
+  ace: "Ace",
+  two: "Two",
+  three: "Three",
+  four: "Four",
+  five: "Five",
+  six: "Six",
+  seven: "Seven",
+  eight: "Eight",
+  nine: "Nine",
+  ten: "Ten",
+  page: "Page",
+  knight: "Knight",
+  queen: "Queen",
+  king: "King",
+};
+
+const majorNameToId = {
+  "The Fool": "the-fool",
+  "The Magician": "the-magician",
+  "The High Priestess": "the-high-priestess",
+  "The Empress": "the-empress",
+  "The Emperor": "the-emperor",
+  "The Hierophant": "the-hierophant",
+  "The Lovers": "the-lovers",
+  "The Chariot": "the-chariot",
+  Fortitude: "strength",
+  Strength: "strength",
+  "The Hermit": "the-hermit",
+  "Wheel of Fortune": "wheel-of-fortune",
+  Justice: "justice",
+  "The Hanged Man": "the-hanged-man",
+  Death: "death",
+  Temperance: "temperance",
+  "The Devil": "the-devil",
+  "The Tower": "the-tower",
+  "The Star": "the-star",
+  "The Moon": "the-moon",
+  "The Sun": "the-sun",
+  "The Last Judgment": "judgement",
+  Judgement: "judgement",
+  "The World": "the-world",
+};
+
+const parseMinorId = (nameShort) => {
+  const suitKey = Object.entries(SUIT_PREFIX).find(([, prefix]) =>
+    nameShort.startsWith(prefix),
+  )?.[0];
+
+  if (!suitKey) {
+    return null;
+  }
+
+  const rankCode = nameShort.slice(2);
+  const rankMap = {
+    ac: "ace",
+    "02": "two",
+    "03": "three",
+    "04": "four",
+    "05": "five",
+    "06": "six",
+    "07": "seven",
+    "08": "eight",
+    "09": "nine",
+    "10": "ten",
+    pa: "page",
+    kn: "knight",
+    qu: "queen",
+    ki: "king",
+  };
+
+  const rank = rankMap[rankCode];
+  if (!rank) {
+    return null;
+  }
+
+  return `${rank}-of-${suitKey}`;
+};
+
+const motifForSuit = (suit) => {
+  /** @type {Record<string, "circle" | "triangle" | "pillar" | "wave" | "sun" | "gate">} */
+  const map = {
+    wands: "sun",
+    cups: "wave",
+    swords: "pillar",
+    pentacles: "circle",
+  };
+  return map[suit] ?? "circle";
+};
+
+const paletteForSuit = (suit) => {
+  const map = {
+    wands: ["#5c2e1a", "#c45c26", "#17110f"],
+    cups: ["#1a3a5c", "#3d7ab8", "#0e1520"],
+    swords: ["#3a3f4a", "#8a9bb0", "#12141a"],
+    pentacles: ["#3d4a2a", "#7a8f4e", "#141810"],
+  };
+  return map[suit] ?? ["#273b54", "#8f2e3e", "#17110f"];
+};
+
+const response = await fetch(SOURCE_URL);
+if (!response.ok) {
+  throw new Error(`Failed to download dataset: ${response.status}`);
+}
+
+const dataset = await response.json();
+const minors = [];
+const metaEntries = [];
+
+for (const card of dataset.cards) {
+  if (card.type === "major") {
+    metaEntries.push({
+      id: majorNameToId[card.name] ?? card.name.toLowerCase().replace(/\s+/g, "-"),
+      nameShort: card.name_short,
+      type: "major",
+      name: card.name,
+      meaningUp: card.meaning_up,
+      meaningRev: card.meaning_rev,
+      description: card.desc?.slice(0, 280) ?? "",
+    });
+    continue;
+  }
+
+  const id = parseMinorId(card.name_short);
+  if (!id) {
+    console.warn("Skipping unmapped minor:", card.name_short, card.name);
+    continue;
+  }
+
+  const suit = id.split("-of-")[1];
+  const rank = id.split("-of-")[0];
+  const courtNumbers = { page: 11, knight: 12, queen: 13, king: 14 };
+  const number =
+    rank === "ace"
+      ? 1
+      : rank in courtNumbers
+        ? courtNumbers[rank]
+        : Number.parseInt(rank, 10);
+
+  minors.push({
+    id,
+    nameShort: card.name_short,
+    number,
+    rank,
+    suit,
+    name: `${RANK_NAMES[rank]} of ${SUIT_NAMES[suit]}`,
+    meaningUp: card.meaning_up,
+    meaningRev: card.meaning_rev,
+    description: card.desc?.slice(0, 220) ?? card.meaning_up?.slice(0, 220) ?? "",
+    artwork: {
+      symbol: rank.slice(0, 2).toUpperCase(),
+      motif: motifForSuit(suit),
+      palette: paletteForSuit(suit),
+    },
+  });
+
+  metaEntries.push({
+    id,
+    nameShort: card.name_short,
+    type: "minor",
+    name: `${RANK_NAMES[rank]} of ${SUIT_NAMES[suit]}`,
+    meaningUp: card.meaning_up,
+    meaningRev: card.meaning_rev,
+    description: card.desc?.slice(0, 280) ?? "",
+  });
+}
+
+if (minors.length !== 56) {
+  console.warn(`Expected 56 minor cards, got ${minors.length}`);
+}
+
+const minorArcanaTs = `/** Auto-generated by scripts/import-tarot-dataset.mjs — do not edit manually */
+import { createArcanaArtwork } from "../lib/artwork";
+import type { MinorTarotCard } from "../types/tarot";
+
+const rawMinorCards = ${JSON.stringify(minors, null, 2)} as Array<{
+  id: string;
+  nameShort: string;
+  number: number;
+  rank: string;
+  suit: "wands" | "cups" | "swords" | "pentacles";
+  name: string;
+  meaningUp: string;
+  meaningRev: string;
+  description: string;
+  artwork: { symbol: string; motif: "circle" | "triangle" | "pillar" | "wave" | "sun" | "gate"; palette: [string, string, string] };
+}>;
+
+export const minorArcana: MinorTarotCard[] = rawMinorCards.map((card) => ({
+  ...card,
+  positiveKeywords: card.meaningUp.split(/[,;]/).map((s) => s.trim()).filter(Boolean).slice(0, 4),
+  cautionKeywords: card.meaningRev.split(/[,;]/).map((s) => s.trim()).filter(Boolean).slice(0, 4),
+  meanings: {
+    general: card.meaningUp,
+    love: card.meaningUp,
+    work: card.meaningUp,
+    spirituality: card.meaningUp,
+    shadow: card.meaningRev,
+  },
+  keywords: [] as string[],
+  image: createArcanaArtwork({
+    name: card.name,
+    number: card.number,
+    artwork: card.artwork,
+  }),
+}));
+`;
+
+const externalDeckMetaTs = `/** Auto-generated metadata from ekelen/tarot-api — Rider-Waite-Smith */
+export type ExternalCardMeta = {
+  id: string;
+  nameShort: string;
+  type: "major" | "minor";
+  name: string;
+  meaningUp: string;
+  meaningRev: string;
+  description: string;
+};
+
+export const externalDeckMeta: ExternalCardMeta[] = ${JSON.stringify(metaEntries, null, 2)};
+
+export const EXTERNAL_DECK_COUNT = ${metaEntries.length};
+`;
+
+const fullDeckTs = `import { majorArcana } from "./majorArcana";
+import { minorArcana } from "./minorArcana";
+import type { DeckCard } from "../types/tarot";
+
+export const fullDeck: DeckCard[] = [...majorArcana, ...minorArcana];
+
+export const FULL_DECK_COUNT = fullDeck.length;
+
+export const isFullDeck = () => FULL_DECK_COUNT === 78;
+`;
+
+const deckTestTs = `import { describe, expect, it } from "vitest";
+import { fullDeck, FULL_DECK_COUNT, isFullDeck } from "./fullDeck";
+import { minorArcana } from "./minorArcana";
+import { majorArcana } from "./majorArcana";
+import { externalDeckMeta, EXTERNAL_DECK_COUNT } from "./externalDeckMeta";
+
+describe("fullDeck", () => {
+  it("contains 78 cards", () => {
+    expect(FULL_DECK_COUNT).toBe(78);
+    expect(isFullDeck()).toBe(true);
+  });
+
+  it("has 22 major and 56 minor arcana", () => {
+    expect(majorArcana.length).toBe(22);
+    expect(minorArcana.length).toBe(56);
+    expect(fullDeck.length).toBe(majorArcana.length + minorArcana.length);
+  });
+
+  it("has unique card ids", () => {
+    const ids = fullDeck.map((card) => card.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("external metadata matches 78 cards", () => {
+    expect(EXTERNAL_DECK_COUNT).toBe(78);
+    expect(externalDeckMeta.length).toBe(78);
+  });
+});
+`;
+
+const coreDataDir = resolve(ROOT, "tarot-angular/packages/core/src/data");
+const reactDataDir = resolve(ROOT, "src/data");
+
+writeFileSync(resolve(coreDataDir, "minorArcana.ts"), minorArcanaTs);
+writeFileSync(resolve(coreDataDir, "externalDeckMeta.ts"), externalDeckMetaTs);
+writeFileSync(resolve(coreDataDir, "fullDeck.ts"), fullDeckTs);
+writeFileSync(resolve(coreDataDir, "fullDeck.test.ts"), deckTestTs);
+
+writeFileSync(resolve(reactDataDir, "externalDeckMeta.ts"), externalDeckMetaTs);
+
+console.log(`Generated ${minors.length} minor cards + metadata for ${metaEntries.length} total cards.`);

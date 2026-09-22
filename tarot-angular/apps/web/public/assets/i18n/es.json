@@ -1,0 +1,11 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "reading": "Tirada",
+    "history": "Historial",
+    "journal": "Diario",
+    "arcana": "Arcanos",
+    "learn": "Aprender",
+    "settings": "Ajustes"
+  }
+}

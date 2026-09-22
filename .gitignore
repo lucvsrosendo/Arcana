@@ -1,0 +1,40 @@
+node_modules/
+dist/
+dist-ssr/
+build/
+*.log
+*.tsbuildinfo
+
+# Env / segredos — nunca commitar (exceto o exemplo)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.keystore
+secrets.json
+service-account*.json
+
+# Caches e artefatos locais
+.cache/
+.vite/
+.turbo/
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# Hospedagem / CLIs
+.vercel/
+.netlify/
+supabase/.temp/
+supabase/.branches/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+*.local
+
+_reference/

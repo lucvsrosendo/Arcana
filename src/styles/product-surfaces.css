@@ -1,0 +1,271 @@
+/* Product surfaces — secondary pages only (.app-shell:not(.is-home))
+   Hairline ink panels. Layout unchanged. */
+
+.app-shell:not(.is-home) {
+  position: relative;
+  isolation: isolate;
+  --surface-haze: linear-gradient(
+    155deg,
+    hsl(var(--foreground) / 0.045) 0%,
+    transparent 42%,
+    hsl(var(--muted) / 0.06) 100%
+  );
+  --surface-edge: linear-gradient(
+    135deg,
+    hsl(var(--foreground) / 0.16),
+    hsl(var(--border) / 0.35) 38%,
+    hsl(var(--foreground) / 0.12) 100%
+  );
+  --surface-inset: inset 0 1px 0 hsl(var(--foreground) / 0.1),
+    inset 0 -1px 0 hsl(var(--foreground) / 0.03);
+  --surface-lift: 0 18px 48px -28px hsl(var(--foreground) / 0.28),
+    0 1px 0 hsl(var(--foreground) / 0.04);
+  --bezel-outer-radius: calc(var(--radius) + 0.28rem);
+}
+
+/* Atelier canvas wash — sister to home bloom; home stays untouched */
+.app-shell:not(.is-home)::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, transparent 55%, hsl(var(--muted) / 0.12));
+}
+
+.app-shell:not(.is-home) > *:not(.app-nav) {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell:not(.is-home) > .app-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: var(--z-nav);
+}
+
+/* ── Shared ritual surface (hairline panels, no glass SaaS) ─────────────── */
+
+.app-shell:not(.is-home) .ritual-surface,
+.app-shell:not(.is-home) [data-slot="card"],
+.app-shell:not(.is-home) .reading-side-card,
+.app-shell:not(.is-home) .daily-card-panel,
+.app-shell:not(.is-home) .arcana-library-panel,
+.app-shell:not(.is-home) .arcana-detail-panel,
+.app-shell:not(.is-home) .history-summary-panel,
+.app-shell:not(.is-home) .history-record,
+.app-shell:not(.is-home) .journal-compose,
+.app-shell:not(.is-home) .journal-feature-card,
+.app-shell:not(.is-home) .journal-entry-card,
+.app-shell:not(.is-home) .learning-spread-card,
+.app-shell:not(.is-home) .learning-tile,
+.app-shell:not(.is-home) .chat-panel,
+.app-shell:not(.is-home) .free-tarot-hero {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid hsl(var(--border) / 0.85);
+  border-radius: var(--radius-sm);
+  background: hsl(var(--card) / 0.92);
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    border-color 280ms var(--ease-ritual),
+    box-shadow 280ms var(--ease-ritual),
+    background-color 280ms var(--ease-ritual);
+}
+
+/* Reading board: ritual frame without isolation — keeps question panel above stage */
+.app-shell:not(.is-home) .free-tarot-game.reading-main-panel {
+  position: relative;
+  isolation: auto;
+  overflow: visible;
+  border: 1px solid hsl(var(--border) / 0.85);
+  border-radius: var(--radius-sm);
+  background: hsl(var(--card) / 0.92);
+  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+}
+
+.app-shell:not(.is-home) .free-tarot-game.reading-main-panel > * {
+  position: static;
+  z-index: auto;
+}
+
+.app-shell:not(.is-home) .free-tarot-game.reading-main-panel > .reading-question-panel {
+  position: relative;
+  z-index: 5;
+}
+
+.app-shell:not(.is-home) .free-tarot-game.reading-main-panel > .reading-stage {
+  position: relative;
+  z-index: 0;
+}
+
+.app-shell:not(.is-home) .ritual-surface,
+.app-shell:not(.is-home) [data-slot="card"],
+.app-shell:not(.is-home) .reading-side-card,
+.app-shell:not(.is-home) .daily-card-panel,
+.app-shell:not(.is-home) .arcana-library-panel,
+.app-shell:not(.is-home) .arcana-detail-panel,
+.app-shell:not(.is-home) .history-summary-panel,
+.app-shell:not(.is-home) .history-record,
+.app-shell:not(.is-home) .journal-compose,
+.app-shell:not(.is-home) .journal-feature-card,
+.app-shell:not(.is-home) .journal-entry-card,
+.app-shell:not(.is-home) .learning-spread-card,
+.app-shell:not(.is-home) .learning-tile,
+.app-shell:not(.is-home) .chat-panel,
+.app-shell:not(.is-home) .free-tarot-hero {
+  overflow: hidden;
+}
+
+/* Inner light edge — quiet hairline only */
+.app-shell:not(.is-home) .ritual-surface::after,
+.app-shell:not(.is-home) .reading-side-card::after,
+.app-shell:not(.is-home) .daily-card-panel::after,
+.app-shell:not(.is-home) .arcana-library-panel::after,
+.app-shell:not(.is-home) .arcana-detail-panel::after,
+.app-shell:not(.is-home) .history-summary-panel::after,
+.app-shell:not(.is-home) .history-record::after,
+.app-shell:not(.is-home) .journal-compose::after,
+.app-shell:not(.is-home) .journal-feature-card::after,
+.app-shell:not(.is-home) .journal-entry-card::after,
+.app-shell:not(.is-home) .learning-spread-card::after,
+.app-shell:not(.is-home) .chat-panel::after {
+  content: none;
+}
+
+.app-shell:not(.is-home) .reading-side-card > *,
+.app-shell:not(.is-home) .daily-card-panel > *,
+.app-shell:not(.is-home) .arcana-library-panel > *,
+.app-shell:not(.is-home) .arcana-detail-panel > *,
+.app-shell:not(.is-home) .history-summary-panel > *,
+.app-shell:not(.is-home) .history-record > *,
+.app-shell:not(.is-home) .journal-compose > *,
+.app-shell:not(.is-home) .journal-feature-card > *,
+.app-shell:not(.is-home) .journal-entry-card > *,
+.app-shell:not(.is-home) .learning-spread-card > *,
+.app-shell:not(.is-home) .chat-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell:not(.is-home) .learning-tile:hover,
+.app-shell:not(.is-home) .arcana-tile:hover {
+  box-shadow: none;
+  border-color: hsl(var(--border));
+}
+
+/* ── Arcana tiles ──────────────────────────────────────────────────────── */
+
+.app-shell:not(.is-home) .arcana-tile {
+  border: 1px solid hsl(var(--border) / 0.8);
+  border-radius: var(--radius-sm);
+  background: hsl(var(--card) / 0.65);
+  box-shadow: none;
+  transition:
+    transform 280ms var(--ease-ritual),
+    border-color 280ms var(--ease-ritual),
+    background 280ms var(--ease-ritual);
+}
+
+.app-shell:not(.is-home) .arcana-tile:hover,
+.app-shell:not(.is-home) .arcana-tile-active {
+  transform: none;
+  box-shadow: none;
+  border-color: hsl(var(--foreground) / 0.28);
+}
+
+/* ── Nested boxes / forms ──────────────────────────────────────────────── */
+
+.app-shell:not(.is-home) .journal-encryption-box,
+.app-shell:not(.is-home) .journal-textarea,
+.app-shell:not(.is-home) .reading-choose-card-banner {
+  border: 1px solid hsl(var(--border) / 0.75);
+  border-radius: var(--radius-sm);
+  background: hsl(var(--muted-hsl) / 0.28);
+  box-shadow: none;
+}
+
+.app-shell:not(.is-home) .journal-feature-icon,
+.app-shell:not(.is-home) .chat-title-mark {
+  border: 1px solid hsl(var(--border) / 0.7);
+  background: transparent;
+  box-shadow: none;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+
+.app-shell:not(.is-home) button:not(.app-nav__brand):not(.app-nav__link):not(.app-nav__mobile-link),
+.app-shell:not(.is-home) [role="button"] {
+  letter-spacing: 0.05em;
+}
+
+.app-shell:not(.is-home) .reading-new-button {
+  border-radius: var(--radius-sm) !important;
+  letter-spacing: 0.05em !important;
+  font-weight: 500 !important;
+}
+
+/* Icon stroke discipline */
+.app-shell:not(.is-home) svg.lucide,
+.app-shell:not(.is-home) .icon-sm,
+.app-shell:not(.is-home) .icon-md,
+.app-shell:not(.is-home) .icon-lg {
+  stroke-width: 1.35;
+}
+
+/* Breathing room */
+.app-shell:not(.is-home) .reading-side-card > .p-4,
+.app-shell:not(.is-home) .daily-card-panel > .p-4 {
+  padding: 1.15rem 1.2rem !important;
+}
+
+.app-shell:not(.is-home) .reading-side-card::before,
+.app-shell:not(.is-home) .chat-panel::before,
+.app-shell:not(.is-home) .free-tarot-game.reading-main-panel::before {
+  display: none !important;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .app-shell:not(.is-home) .ritual-surface,
+  .app-shell:not(.is-home) [data-slot="card"],
+  .app-shell:not(.is-home) .reading-side-card,
+  .app-shell:not(.is-home) .daily-card-panel,
+  .app-shell:not(.is-home) .arcana-library-panel,
+  .app-shell:not(.is-home) .arcana-detail-panel,
+  .app-shell:not(.is-home) .history-summary-panel,
+  .app-shell:not(.is-home) .history-record,
+  .app-shell:not(.is-home) .journal-compose,
+  .app-shell:not(.is-home) .journal-feature-card,
+  .app-shell:not(.is-home) .journal-entry-card,
+  .app-shell:not(.is-home) .learning-spread-card,
+  .app-shell:not(.is-home) .learning-tile,
+  .app-shell:not(.is-home) .chat-panel,
+  .app-shell:not(.is-home) .free-tarot-hero,
+  .app-shell:not(.is-home) .free-tarot-game.reading-main-panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.85);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell:not(.is-home) .ritual-surface,
+  .app-shell:not(.is-home) .reading-side-card,
+  .app-shell:not(.is-home) .arcana-tile,
+  .app-shell:not(.is-home) .reading-new-button {
+    transition: none !important;
+  }
+
+  .app-shell:not(.is-home) .arcana-tile:hover,
+  .app-shell:not(.is-home) .arcana-tile-active,
+  .app-shell:not(.is-home) .reading-new-button:hover {
+    transform: none !important;
+  }
+}

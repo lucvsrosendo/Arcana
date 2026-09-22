@@ -1,0 +1,11 @@
+{
+  "nav": {
+    "home": "Início",
+    "reading": "Tiragem",
+    "history": "Histórico",
+    "journal": "Diário",
+    "arcana": "Arcanos",
+    "learn": "Aprender",
+    "settings": "Ajustes"
+  }
+}

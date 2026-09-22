@@ -1,0 +1,24 @@
+/* Zen shell — layout helpers */
+
+.theme-root {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.app-shell {
+  max-width: none;
+}
+
+.app-shell.is-home,
+.app-shell.is-reading,
+.app-shell.is-journal {
+  max-width: none;
+}
+
+.zen-page {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}

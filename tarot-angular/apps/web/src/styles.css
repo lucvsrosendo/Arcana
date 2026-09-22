@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tarot-bg: rgb(14 14 16);
+  --color-tarot-surface: rgb(24 24 27);
+  --color-tarot-surface-strong: rgb(36 36 40);
+  --color-tarot-text: rgb(250 250 252);
+  --color-tarot-muted: rgb(161 161 170);
+  --color-tarot-line: rgb(63 63 70);
+  --color-tarot-brand: rgb(212 175 95);
+  --color-tarot-second: rgb(113 113 122);
+  --color-tarot-warm: rgb(190 90 90);
+  --font-sans: Inter, system-ui, -apple-system, sans-serif;
+  --font-display: Georgia, Cambria, serif;
+}
+
+:root,
+:root[data-theme="classic"] {
+  --bg: 14 14 16;
+  --surface: 24 24 27;
+  --surface-strong: 36 36 40;
+  --text: 250 250 252;
+  --muted: 161 161 170;
+  --line: 63 63 70;
+  --accent: 212 175 95;
+  --second: 113 113 122;
+  --warm: 190 90 90;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-sans);
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.zen-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.zen-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgb(var(--line) / 0.6);
+  background: rgb(var(--surface) / 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.zen-brand {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgb(var(--accent));
+  margin-right: auto;
+}
+
+.zen-nav a {
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(var(--muted));
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.zen-nav a:hover {
+  color: rgb(var(--text));
+  background: rgb(var(--accent) / 0.1);
+}
+
+.zen-nav a.active {
+  color: rgb(var(--text));
+  background: rgb(var(--accent) / 0.16);
+  box-shadow: 0 0 0 1px rgb(var(--accent) / 0.22);
+}
+
+.zen-main {
+  flex: 1;
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.zen-card {
+  border: 1px solid rgb(var(--line) / 0.55);
+  border-radius: 1rem;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--surface-strong) / 0.55),
+    rgb(var(--surface) / 0.85)
+  );
+  box-shadow: 0 24px 70px rgba(10, 6, 4, 0.34);
+}
+
+.zen-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--accent));
+}
+
+.zen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgb(var(--accent) / 0.45);
+  background: linear-gradient(180deg, rgb(var(--accent)), rgb(var(--accent) / 0.78));
+  color: rgb(var(--bg));
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.zen-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px rgb(var(--accent) / 0.35);
+}
+
+.zen-btn-ghost {
+  background: transparent;
+  color: rgb(var(--text));
+  border-color: rgb(var(--line));
+}
+
+.zen-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgb(var(--line));
+  background: rgb(var(--bg) / 0.5);
+  color: rgb(var(--text));
+}
+
+.zen-input:focus {
+  outline: 2px solid rgb(var(--accent) / 0.45);
+  outline-offset: 1px;
+}

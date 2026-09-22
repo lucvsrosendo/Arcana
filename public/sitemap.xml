@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tarot.example.com</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://tarot.example.com/home</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://tarot.example.com/reading</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://tarot.example.com/privacy</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tarot.example.com/terms</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://tarot.example.com/cookies</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>

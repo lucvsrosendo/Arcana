@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    },
+    "posthog": {
+      "url": "https://mcp.posthog.com/mcp"
+    }
+  }
+}

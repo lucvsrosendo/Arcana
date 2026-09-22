@@ -1,0 +1,76 @@
+@import "./styles/tokens.css";
+@import "./styles/zen-shell.css";
+@import "./styles/zen-lovable.css";
+@import "./styles/product-shell.css";
+@import "./styles/product-surfaces.css";
+@import "./styles/editorial-type.css";
+@import "./styles/legacy-functional.css";
+@import "./styles/tarot-cards.css";
+@import "./styles/reading-zen-overrides.css";
+@import "./styles/chat-zen.css";
+@import "./styles/history-zen-overrides.css";
+@import "./styles/journal-zen-overrides.css";
+@import "./styles/home-zen-overrides.css";
+@import "./styles/learning-zen-overrides.css";
+@import "./styles/auth-zen.css";
+@import "./styles/arcana-zen-overrides.css";
+@import "./styles/news-zen-overrides.css";
+@import "./styles/news-admin-zen.css";
+@import "./styles/system-zen-overrides.css";
+@import "./styles/settings-zen-overrides.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .editorial-prose {
+    @apply prose prose-lg max-w-prose;
+    @apply prose-headings:font-display prose-headings:font-light prose-headings:tracking-tight prose-headings:text-foreground;
+    @apply prose-p:font-sans prose-p:text-muted-foreground prose-p:leading-relaxed;
+    @apply prose-li:font-sans prose-li:text-muted-foreground prose-li:leading-relaxed;
+    @apply prose-strong:text-foreground prose-strong:font-medium;
+    @apply prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline;
+    @apply prose-blockquote:border-l-primary/30 prose-blockquote:text-muted-foreground;
+    @apply prose-code:rounded prose-code:bg-muted/50 prose-code:px-1 prose-code:text-foreground;
+    @apply prose-hr:border-border;
+  }
+
+  .editorial-prose-sm {
+    @apply prose-sm;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  .text-architectural {
+    @apply tracking-[-0.022em] leading-[1.12];
+  }
+
+  .text-minimal {
+    @apply tracking-[0.06em] uppercase text-[0.6875rem] font-medium;
+  }
+
+  .hero-overlay {
+    background: var(--gradient-overlay);
+  }
+
+  .reveal {
+    @apply opacity-0 translate-y-8;
+    animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .reveal-delayed {
+    @apply opacity-0 translate-y-8;
+    animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  }
+
+  @keyframes reveal {
+    to {
+      @apply opacity-100 translate-y-0;
+    }
+  }
+}
