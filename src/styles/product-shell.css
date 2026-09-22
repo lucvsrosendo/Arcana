@@ -3,7 +3,13 @@
 .app-nav {
   z-index: var(--z-nav);
   border: 0;
-  background: transparent;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--background) / 0.98) 0%,
+    hsl(var(--background) / 0.92) 72%,
+    transparent 100%
+  );
+  padding-bottom: 0.75rem;
   pointer-events: none;
 }
 
@@ -36,10 +42,12 @@
   width: min(76rem, calc(100% - 1.5rem));
   border: 1px solid hsl(var(--border) / 0.55);
   border-radius: var(--radius-sm);
-  background: hsl(var(--background) / 0.96);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
+  background: hsl(var(--background) / 0.98);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--foreground) / 0.05),
+    0 10px 30px hsl(var(--background) / 0.42);
 }
 
 .app-nav__brand {

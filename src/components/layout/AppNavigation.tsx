@@ -3,7 +3,6 @@ import {
   BookOpen,
   Check,
   ChevronDown,
-  Download,
   History,
   House,
   LayoutGrid,
@@ -212,18 +211,6 @@ export function AppNavigation({
             )}
           </Button>
 
-          {installPrompt ? (
-            <Button
-              variant="outline"
-              size="sm"
-              className="gap-1 rounded-[var(--radius-sm)] tracking-[0.08em]"
-              onClick={onInstallApp}
-            >
-              <Download className="icon-sm" strokeWidth={1.5} />
-              {copy.installApp}
-            </Button>
-          ) : null}
-
           <HeaderUserControls
             auth={auth}
             copy={copy}
@@ -344,17 +331,6 @@ export function AppNavigation({
                     <VolumeX className="icon-md" strokeWidth={1.5} />
                   )}
                 </Button>
-                {installPrompt ? (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-1 rounded-[var(--radius-sm)]"
-                    onClick={onInstallApp}
-                  >
-                    <Download className="icon-sm" strokeWidth={1.5} />
-                    {copy.installApp}
-                  </Button>
-                ) : null}
               </div>
 
               <HeaderUserControls
