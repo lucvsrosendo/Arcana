@@ -41,4 +41,7 @@ export const getMoonPhaseLabel = (language: LanguageCode = "pt") => {
 
 export const getMoonPhaseEmoji = () => Moon.lunarPhaseEmoji();
 
+/** 0 = new moon, 0.5 = full moon, approaching 1 = next new moon. */
+export const getMoonAgeFraction = (date = new Date()) => Moon.lunarAgePercent(date);
+
 export const isMoonWaxing = () => Moon.isWaxing();

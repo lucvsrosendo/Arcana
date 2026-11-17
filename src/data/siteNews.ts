@@ -29,12 +29,24 @@ export type NewsComment = {
 export type HomeContent = {
   brandName: string;
   title: string;
+  /** Substring of `title` set in italic. */
+  titleAccent: string;
   intro: string;
   primaryAction: string;
   secondaryAction: string;
+  heroFactArcana: string;
+  heroFactSpreads: string;
   dailyTitle: string;
   dailyText: string;
   dailyOpenLabel: string;
+  arcanaTitle: string;
+  arcanaText: string;
+  arcanaAction: string;
+  arcanaOpenLabel: string;
+  spreadsTitle: string;
+  spreadsText: string;
+  spreadsAction: string;
+  spreadsCardUnit: { one: string; other: string };
   pillarsTitle: string;
   pillars: Array<{
     icon: "layers" | "book" | "journal" | "shield";
@@ -54,13 +66,26 @@ export const homeContent: Record<LanguageCode, HomeContent> = {
   pt: {
     brandName: "Arcanos Maiores",
     title: "Organize o que você já sente.",
+    titleAccent: "já sente",
     intro:
-      "Tiragem rápida, 22 arcanos Marseille e um diário pra notar padrões. Sem previsão. Só espelho — e a próxima decisão fica mais clara.",
+      "Tiragem rápida, os 22 arcanos de Marselha e um diário para notar padrões. Sem previsão: só espelho, e a próxima decisão fica mais clara.",
     primaryAction: "Fazer uma tiragem",
     secondaryAction: "Aprender a ler",
+    heroFactArcana: "22 arcanos de Marselha",
+    heroFactSpreads: "formatos de tiragem",
     dailyTitle: "Carta de hoje",
-    dailyText: "Um símbolo pra calibrar o dia. Leva segundos. Fica na cabeça o resto da tarde.",
+    dailyText: "Um símbolo para calibrar o dia. Leva segundos e fica com você o resto da tarde.",
     dailyOpenLabel: "Abrir minha carta",
+    arcanaTitle: "Os 22, em ordem",
+    arcanaText:
+      "Do Louco ao Mundo, cada arcano é um passo da mesma jornada. Toque numa carta para abrir o significado dela.",
+    arcanaAction: "Abrir a biblioteca",
+    arcanaOpenLabel: "Ver significado",
+    spreadsTitle: "Primeiro a pergunta, depois o formato",
+    spreadsText:
+      "Comece com uma carta. Quando a pergunta pedir contexto, abra três, ou a Cruz Celta inteira.",
+    spreadsAction: "Usar esta tiragem",
+    spreadsCardUnit: { one: "carta", other: "cartas" },
     pillarsTitle: "O que você encontra aqui",
     pillars: [
       {
@@ -71,43 +96,56 @@ export const homeContent: Record<LanguageCode, HomeContent> = {
       {
         icon: "book",
         title: "Biblioteca dos 22",
-        text: "Significados, símbolos e exemplos em Marseille. Consulte quando a carta virar e você quiser ir fundo.",
+        text: "Significados, símbolos e exemplos no tarot de Marselha. Consulte quando a carta virar e você quiser ir fundo.",
       },
       {
         icon: "journal",
         title: "Diário que mostra padrão",
-        text: "Anote o que bateu. Dias depois você vê o que se repetiu — e para de achar que é só coincidência.",
+        text: "Anote o que bateu. Dias depois você vê o que se repetiu e para de achar que é só coincidência.",
       },
       {
         icon: "shield",
         title: "Espelho, não destino",
-        text: "Tarot como linguagem simbólica. Ajuda a nomear. Não decide por você. Você lê. Você escolhe.",
+        text: "Tarot como linguagem simbólica. Ajuda a nomear, não decide por você. Você lê. Você escolhe.",
       },
     ],
     aboutTitle: "Tarot como ferramenta. Não como sentença.",
     aboutText:
-      "Mesa, estudo e diário no mesmo lugar. Você tira, interpreta, anota — e volta quando a cabeça pedir outra rodada.",
+      "Mesa, estudo e diário no mesmo lugar. Você tira, interpreta, anota, e volta quando a cabeça pedir outra rodada.",
     aboutPoints: [
-      "Tiragem é o espaço pra abrir a pergunta e ver o que responde.",
-      "Histórico guarda leituras e mostra cartas que voltam.",
-      "Diário transforma impressão solta em padrão visível.",
-      "Aprender explica posições pra você ler com mais confiança.",
+      "Na Tiragem você abre a pergunta e vê o que responde.",
+      "O Histórico guarda leituras e mostra as cartas que voltam.",
+      "O Diário transforma impressão solta em padrão visível.",
+      "Aprender explica as posições para você ler com mais confiança.",
     ],
     newsTitle: "Novidades",
-    newsSubtitle: "Atualizações da mesa, melhorias e ideias pra usar melhor.",
+    newsSubtitle: "Atualizações da mesa, melhorias e ideias para usar melhor.",
     newsSidebarTitle: "Últimas",
     newsSidebarHint: "Veja tudo na Home.",
   },
   en: {
     brandName: "Major Arcana",
     title: "Name what you already feel.",
+    titleAccent: "already feel",
     intro:
-      "Quick spreads, 22 Marseille arcana, and a journal to spot patterns. Not prediction — a mirror so the next call gets clearer.",
+      "Quick spreads, the 22 Marseille arcana, and a journal to spot patterns. Not prediction: a mirror, so the next call gets clearer.",
     primaryAction: "Do a reading",
     secondaryAction: "Learn to read",
+    heroFactArcana: "22 Marseille arcana",
+    heroFactSpreads: "spread layouts",
     dailyTitle: "Today's card",
-    dailyText: "One symbol to set the tone. Takes seconds. Stays with you all afternoon.",
+    dailyText: "One symbol to set the tone. Takes seconds and stays with you all afternoon.",
     dailyOpenLabel: "Open my card",
+    arcanaTitle: "The 22, in order",
+    arcanaText:
+      "From the Fool to the World, each arcanum is one step of the same journey. Tap a card to open its meaning.",
+    arcanaAction: "Open the library",
+    arcanaOpenLabel: "See meaning",
+    spreadsTitle: "The question first, then the layout",
+    spreadsText:
+      "Start with one card. When the question needs context, open three, or the full Celtic Cross.",
+    spreadsAction: "Use this spread",
+    spreadsCardUnit: { one: "card", other: "cards" },
     pillarsTitle: "What you'll find here",
     pillars: [
       {
@@ -123,7 +161,7 @@ export const homeContent: Record<LanguageCode, HomeContent> = {
       {
         icon: "journal",
         title: "A journal that shows patterns",
-        text: "Note what hit. Days later you see what repeated — and stop calling it coincidence.",
+        text: "Note what hit. Days later you see what repeated, and stop calling it coincidence.",
       },
       {
         icon: "shield",
@@ -133,10 +171,10 @@ export const homeContent: Record<LanguageCode, HomeContent> = {
     ],
     aboutTitle: "Tarot as a tool. Not a sentence.",
     aboutText:
-      "Table, study, and journal in one place. Draw, interpret, note — come back when your head wants another round.",
+      "Table, study, and journal in one place. Draw, interpret, take notes, and come back when your head wants another round.",
     aboutPoints: [
       "Reading is where you open the question and see what answers.",
-      "History keeps readings and shows cards that return.",
+      "History keeps your readings and shows the cards that return.",
       "The Journal turns loose impressions into visible patterns.",
       "Learn explains positions so you read with more confidence.",
     ],
@@ -147,50 +185,63 @@ export const homeContent: Record<LanguageCode, HomeContent> = {
   },
   es: {
     brandName: "Arcanos Mayores",
-    title: "Ordena lo que ya sentis.",
+    title: "Ordena lo que ya sentís.",
+    titleAccent: "ya sentís",
     intro:
-      "Tirada rapida, 22 arcanos Marseille y un diário para notar patrones. Sin prediccion. Solo espejo — y la proxima decision queda mas clara.",
+      "Tirada rápida, los 22 arcanos de Marsella y un diario para notar patrones. Sin predicción: solo espejo, y la próxima decisión queda más clara.",
     primaryAction: "Hacer una tirada",
     secondaryAction: "Aprender a leer",
+    heroFactArcana: "22 arcanos de Marsella",
+    heroFactSpreads: "formatos de tirada",
     dailyTitle: "Carta de hoy",
-    dailyText: "Un simbolo para calibrar el dia. Toma segundos. Se te queda en la cabeza toda la tarde.",
+    dailyText: "Un símbolo para calibrar el día. Toma segundos y se te queda toda la tarde.",
     dailyOpenLabel: "Abrir mi carta",
-    pillarsTitle: "Lo que encontras aca",
+    arcanaTitle: "Los 22, en orden",
+    arcanaText:
+      "Del Loco al Mundo, cada arcano es un paso del mismo viaje. Tocá una carta para abrir su significado.",
+    arcanaAction: "Abrir la biblioteca",
+    arcanaOpenLabel: "Ver significado",
+    spreadsTitle: "Primero la pregunta, después el formato",
+    spreadsText:
+      "Empezá con una carta. Cuando la pregunta pida contexto, abrí tres, o la Cruz Celta completa.",
+    spreadsAction: "Usar esta tirada",
+    spreadsCardUnit: { one: "carta", other: "cartas" },
+    pillarsTitle: "Lo que encontrás acá",
     pillars: [
       {
         icon: "layers",
         title: "Tiradas sin vueltas",
-        text: "Elegi el formato, saca cartas y lee cada posicion como una pregunta. Claridad ahora, no despues.",
+        text: "Elegí el formato, sacá cartas y leé cada posición como una pregunta. Claridad ahora, no después.",
       },
       {
         icon: "book",
         title: "Biblioteca de los 22",
-        text: "Significados, simbolos y ejemplos Marseille. Consulta cuando la carta gire y quieras ir a fondo.",
+        text: "Significados, símbolos y ejemplos del tarot de Marsella. Consultá cuando la carta gire y quieras ir a fondo.",
       },
       {
         icon: "journal",
-        title: "Diário que muestra patron",
-        text: "Anota lo que pego. Dias despues ves lo que se repitio — y dejas de pensarlo coincidencia.",
+        title: "Diario que muestra patrones",
+        text: "Anotá lo que resonó. Días después ves lo que se repitió y dejás de pensarlo como coincidencia.",
       },
       {
         icon: "shield",
         title: "Espejo, no destino",
-        text: "Tarot como lenguaje simbolico. Ayuda a nombrar. No decide por vos. Vos lees. Vos elegis.",
+        text: "Tarot como lenguaje simbólico. Ayuda a nombrar, no decide por vos. Vos leés. Vos elegís.",
       },
     ],
     aboutTitle: "Tarot como herramienta. No como sentencia.",
     aboutText:
-      "Mesa, estudio y diário en el mismo lugar. Tiras, interpretas, anotas — y volves cuando la cabeza pida otra ronda.",
+      "Mesa, estudio y diario en el mismo lugar. Tirás, interpretás, anotás, y volvés cuando la cabeza pida otra ronda.",
     aboutPoints: [
-      "Tirada es el espacio para abrir la pregunta y ver que responde.",
-      "El Historial guarda lecturas y muestra cartas que vuelven.",
-      "El Diário transforma impresion suelta en patron visible.",
-      "Aprender explica posiciones para que leas con mas confianza.",
+      "En la Tirada abrís la pregunta y ves qué responde.",
+      "El Historial guarda lecturas y muestra las cartas que vuelven.",
+      "El Diario transforma impresiones sueltas en patrones visibles.",
+      "Aprender explica las posiciones para que leas con más confianza.",
     ],
     newsTitle: "Novedades",
     newsSubtitle: "Actualizaciones de la mesa, mejoras e ideas para usarla mejor.",
-    newsSidebarTitle: "Ultimas",
-    newsSidebarHint: "Mira todo en Inicio.",
+    newsSidebarTitle: "Últimas",
+    newsSidebarHint: "Mirá todo en Inicio.",
   },
 };
 

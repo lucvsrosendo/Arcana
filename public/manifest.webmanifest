@@ -3,9 +3,9 @@
   "short_name": "Arcanos",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0e0e10",
-  "theme_color": "#0e0e10",
-  "description": "Tiragens, diario e 22 arcanos Marseille pra organizar a cabeca — espelho simbolico, nao previsao.",
+  "background_color": "#0c0b0f",
+  "theme_color": "#0c0b0f",
+  "description": "Tiragens, diário e os 22 Arcanos Maiores de Marselha — espelho simbólico, não previsão.",
   "lang": "pt-BR",
   "icons": [
     {

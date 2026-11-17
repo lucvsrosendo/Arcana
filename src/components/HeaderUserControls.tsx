@@ -1,7 +1,12 @@
+import { Suspense, lazy } from "react";
+import { ChevronDown, UserRound } from "lucide-react";
 import type { AuthStatus } from "../hooks/useAuth";
 import { useUserProfile } from "../hooks/useUserProfile";
-import { AuthPanel } from "./AuthPanel";
 import { UserXpBar } from "./UserXpBar";
+
+const AuthPanel = lazy(() =>
+  import("./AuthPanel").then((module) => ({ default: module.AuthPanel })),
+);
 
 type HeaderUserControlsProps = {
   auth: AuthStatus;
@@ -10,6 +15,16 @@ type HeaderUserControlsProps = {
   syncError: string | null;
   onOpenSettings: () => void;
 };
+
+function AuthTriggerPlaceholder({ label }: { label: string }) {
+  return (
+    <button type="button" className="auth-zen-trigger" disabled aria-busy="true">
+      <UserRound className="h-4 w-4" aria-hidden="true" />
+      <span>{label}</span>
+      <ChevronDown className="h-4 w-4" aria-hidden="true" />
+    </button>
+  );
+}
 
 export function HeaderUserControls({
   auth,
@@ -34,16 +49,18 @@ export function HeaderUserControls({
           ariaLabel={`${copy.xpLabel} ${xpTotal}`}
         />
       ) : null}
-      <AuthPanel
-        auth={auth}
-        copy={copy}
-        cloudError={cloudError}
-        syncError={syncError}
-        displayName={displayName}
-        avatarUrl={profile?.avatarUrl ?? null}
-        xpTotal={xpTotal}
-        onOpenSettings={onOpenSettings}
-      />
+      <Suspense fallback={<AuthTriggerPlaceholder label={copy.account} />}>
+        <AuthPanel
+          auth={auth}
+          copy={copy}
+          cloudError={cloudError}
+          syncError={syncError}
+          displayName={displayName}
+          avatarUrl={profile?.avatarUrl ?? null}
+          xpTotal={xpTotal}
+          onOpenSettings={onOpenSettings}
+        />
+      </Suspense>
     </>
   );
 }

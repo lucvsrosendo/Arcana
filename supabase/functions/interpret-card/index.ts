@@ -11,6 +11,15 @@ import {
   type CardInsightPayload,
 } from "../_shared/chat-helpers.ts";
 import { isRateLimited } from "../_shared/rate-limit.ts";
+import {
+  RequestGuardError,
+  isWithinSize,
+  pickLanguage,
+  readJsonBody,
+} from "../_shared/request-guards.ts";
+
+const MAX_QUESTION_CHARS = 1_000;
+const MAX_PAYLOAD_CHARS = 16_000;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") ?? "*",
@@ -72,14 +81,20 @@ serve(async (request) => {
   }
 
   try {
-    const body = await request.json();
+    const body = await readJsonBody(request);
     const payload = body as CardInsightPayload;
 
     if (!isValidPayload(payload)) {
       return jsonResponse(400, { error: "Missing or invalid card insight payload." });
     }
 
-    const language = payload.language ?? headerLanguage;
+    payload.question = payload.question.slice(0, MAX_QUESTION_CHARS);
+
+    if (!isWithinSize(payload, MAX_PAYLOAD_CHARS)) {
+      return jsonResponse(413, { error: "Card insight payload is too large." });
+    }
+
+    const language = pickLanguage(payload.language, headerLanguage);
     const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -123,8 +138,12 @@ serve(async (request) => {
 
     return jsonResponse(200, { insight });
   } catch (error) {
-    return jsonResponse(500, {
-      error: error instanceof Error ? error.message : "Unexpected card insight error.",
-    });
+    if (error instanceof RequestGuardError) {
+      return jsonResponse(error.status, { error: error.message });
+    }
+
+    console.error("interpret-card function failed", error);
+    const localized = providerErrorMessages[headerLanguage] ?? providerErrorMessages.pt;
+    return jsonResponse(500, { error: localized.unavailable });
   }
 });

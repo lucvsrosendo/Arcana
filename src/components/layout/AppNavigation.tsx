@@ -52,7 +52,7 @@ const navigation: Array<{ page: AppPage; icon: LucideIcon; labelKey: CopyKey }> 
 ];
 
 const themeSwatches: Record<ThemeId, [string, string, string]> = {
-  classic: ["#1a1a1c", "#7a6a9a", "#71717a"],
+  classic: ["#0c0b10", "#d8a74e", "#c4452f"],
   lunar: ["#12162a", "#a8b8e8", "#5ec8d4"],
   golden: ["#201a12", "#dcb564", "#57bfa2"],
   minimal: ["#fafafa", "#18181b", "#a1a1aa"],

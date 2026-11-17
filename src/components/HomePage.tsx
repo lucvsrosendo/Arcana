@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
 import { useMemo } from "react";
-import { motion, useReducedMotion } from "motion/react";
 import {
   Carousel,
   CarouselContent,
@@ -8,91 +7,82 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getMoonPhaseLabel } from "@/lib/moonPhase";
+import { getMoonAgeFraction, getMoonPhaseLabel } from "@/lib/moonPhase";
 import { Button } from "@/components/ui/button";
-import { ZenHero } from "@/components/zen/ZenHero";
-import { ZenSection } from "@/components/zen/ZenSection";
+import { HomeHero, MoonGlyph } from "@/components/home/HomeHero";
+import {
+  ArcanaRail,
+  DailyCardFeature,
+  FEATURED_SPREAD_IDS,
+  HomeSectionHeader,
+  PillarGlyph,
+  SpreadShowcase,
+} from "@/components/home/HomeSections";
 import { majorArcana } from "@/data/majorArcana";
+import { spreadDefinitions } from "@/data/spreads";
 import { getHomeContent } from "@/data/siteNews";
-import { localizeCard, uiCopy } from "@/data/i18n";
+import { getLocalizedSpreadDefinitions, localizeCard, uiCopy } from "@/data/i18n";
 import { useTarot } from "@/hooks/useTarot";
 import { useNews } from "@/hooks/useNews";
 import { openNewsArticle } from "@/lib/openNews";
-import { StreakBadge } from "@/components/trophy/StreakBadge";
-import { ArcanaCardImage } from "@/components/tarot/ArcanaCardImage";
-import type { AppPage, TarotCardId } from "@/types/tarot";
+import type { AppPage, LanguageCode, SpreadId, TarotCardId } from "@/types/tarot";
 
 type HomePageProps = {
   onNavigate: (page: AppPage) => void;
 };
 
 const HERO_CARD_IDS: TarotCardId[] = ["the-moon", "the-star", "the-sun"];
+const FEATURED_SPREADS = new Set<SpreadId>(FEATURED_SPREAD_IDS);
+const DATE_LOCALES: Record<LanguageCode, string> = { pt: "pt-BR", en: "en-US", es: "es-ES" };
 
-const easeRitual = [0.32, 0.72, 0, 1] as const;
-
-function HeroDeckVisual({
-  cards,
-}: {
-  cards: Array<ReturnType<typeof localizeCard>>;
-}) {
-  const reduceMotion = useReducedMotion();
-  const positions = ["left", "center", "right"] as const;
-
-  return (
-    <motion.div
-      className="home-hero-visual"
-      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.85, ease: easeRitual, delay: 0.12 }}
-    >
-      {cards.map((card, index) => (
-        <figure
-          key={card.id}
-          className={`home-hero-card home-hero-card--${positions[index]}`}
-        >
-          <ArcanaCardImage
-            cardId={card.id}
-            src={card.image}
-            name={card.name}
-            number={card.number}
-            artwork={card.artwork}
-            alt=""
-            className="home-hero-card__image"
-            priority={index === 1}
-          />
-          <figcaption className="home-hero-card__caption">{card.name}</figcaption>
-        </figure>
-      ))}
-      <p className="home-hero-legend">Marseille, XVIII, XVII, XIX</p>
-    </motion.div>
-  );
-}
+const capitalize = (value: string) => value.charAt(0).toLocaleUpperCase() + value.slice(1);
 
 export function HomePage({ onNavigate }: HomePageProps) {
   const dailyCard = useTarot((state) => state.dailyCard);
   const dailyStreak = useTarot((state) => state.dailyStreak);
   const language = useTarot((state) => state.language);
+  const setSpread = useTarot((state) => state.setSpread);
   const content = getHomeContent(language);
   const copy = uiCopy[language];
   const { news } = useNews(language);
+
   const localizedDailyCard = useMemo(
     () => localizeCard(dailyCard, language),
     [dailyCard, language],
   );
+  const localizedArcana = useMemo(
+    () =>
+      majorArcana
+        .map((card) => localizeCard(card, language))
+        .sort((first, second) => first.number - second.number),
+    [language],
+  );
   const heroCards = useMemo(
     () =>
-      HERO_CARD_IDS.map((id) => {
-        const found = majorArcana.find((card) => card.id === id) ?? majorArcana[0]!;
-        return localizeCard(found, language);
-      }),
+      HERO_CARD_IDS.map(
+        (id) => localizedArcana.find((card) => card.id === id) ?? localizedArcana[0]!,
+      ),
+    [localizedArcana],
+  );
+  const featuredSpreads = useMemo(
+    () => getLocalizedSpreadDefinitions(language).filter((spread) => FEATURED_SPREADS.has(spread.id)),
     [language],
+  );
+
+  const today = new Date();
+  const todayLabel = capitalize(
+    new Intl.DateTimeFormat(DATE_LOCALES[language], {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    }).format(today),
   );
 
   const go = (page: AppPage) => {
     onNavigate(page);
   };
 
-  const openDailyCard = (cardId: TarotCardId) => {
+  const openCard = (cardId: TarotCardId) => {
     onNavigate("arcana");
     window.dispatchEvent(
       new CustomEvent("arcana:focus", {
@@ -101,213 +91,187 @@ export function HomePage({ onNavigate }: HomePageProps) {
     );
   };
 
+  const chooseSpread = (spreadId: SpreadId) => {
+    setSpread(spreadId);
+    onNavigate("reading");
+  };
+
   return (
-    <div className="home-zen min-h-[100dvh]">
-      <ZenHero
-        className="home-zen-hero"
-        brandName={content.brandName}
+    <div className="home-zen home-marseille">
+      <HomeHero
+        kicker={
+          <>
+            <MoonGlyph age={getMoonAgeFraction(today)} />
+            <time dateTime={today.toISOString().slice(0, 10)}>{todayLabel}</time>
+            <span aria-hidden="true">·</span>
+            <span>{getMoonPhaseLabel(language)}</span>
+          </>
+        }
         title={content.title}
+        titleAccent={content.titleAccent}
         intro={content.intro}
+        facts={[content.heroFactArcana, `${spreadDefinitions.length} ${content.heroFactSpreads}`]}
+        cards={heroCards}
         actions={
           <>
-            <Button
-              onClick={() => go("reading")}
-              variant="ritual"
-              className="home-cta-primary"
-            >
+            <Button onClick={() => go("reading")} className="home-cta-primary">
               {content.primaryAction}
             </Button>
-            <button
-              type="button"
-              className="home-cta-link"
-              onClick={() => go("learn")}
-            >
+            <button type="button" className="home-link home-link--quiet" onClick={() => go("learn")}>
               {content.secondaryAction}
-              <ArrowRight className="h-4 w-4 home-cta-link__arrow" strokeWidth={1.5} />
+              <ArrowRight className="home-link__arrow" strokeWidth={1.5} aria-hidden="true" />
             </button>
           </>
         }
-        visual={<HeroDeckVisual cards={heroCards} />}
       />
 
-      <div>
-        <ZenSection
-          className="home-daily-section"
-          title={content.dailyTitle}
-          compactHeader
-        >
-          <button
-            type="button"
-            className="home-daily-feature"
-            aria-label={`${content.dailyOpenLabel}: ${localizedDailyCard.name}`}
-            onClick={() => openDailyCard(localizedDailyCard.id)}
-          >
-            <div className="home-daily-feature__art">
-              <ArcanaCardImage
-                cardId={localizedDailyCard.id}
-                src={localizedDailyCard.image}
-                name={localizedDailyCard.name}
-                number={localizedDailyCard.number}
-                artwork={localizedDailyCard.artwork}
-                alt={`${content.dailyTitle}: ${localizedDailyCard.name}`}
-                className="home-daily-feature__image"
-              />
-            </div>
-            <div className="home-daily-feature__body">
-              <p className="home-daily-feature__eyebrow">
-                {getMoonPhaseLabel(language)}
-              </p>
-              <h5 className="font-display home-daily-feature__title">
-                {localizedDailyCard.name}
-              </h5>
-              <div className="mt-2">
-                <StreakBadge streak={dailyStreak} label={copy.streakLabel} />
-              </div>
-              <p className="home-daily-feature__advice">
-                {localizedDailyCard.dailyAdvice ?? localizedDailyCard.meanings.general}
-              </p>
-              <p className="home-daily-feature__hint">{content.dailyText}</p>
-              <span className="home-daily-feature__cta">
-                {content.dailyOpenLabel}
-                <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
-              </span>
-            </div>
-          </button>
-        </ZenSection>
-      </div>
+      <section className="home-section home-section--daily">
+        <div className="home-container">
+          <HomeSectionHeader title={content.dailyTitle} />
+          <DailyCardFeature
+            card={localizedDailyCard}
+            streak={dailyStreak}
+            streakLabel={copy.streakLabel}
+            title={content.dailyTitle}
+            hint={content.dailyText}
+            openLabel={content.dailyOpenLabel}
+            onOpen={openCard}
+          />
+        </div>
+      </section>
 
-      <div>
-        <ZenSection
-          className="home-pillars-section"
-          title={content.pillarsTitle}
-          compactHeader
-        >
-          <ol className="home-pillars-list">
+      <section className="home-section home-section--arcana">
+        <div className="home-container">
+          <HomeSectionHeader
+            title={content.arcanaTitle}
+            text={content.arcanaText}
+            action={
+              <button type="button" className="home-link" onClick={() => go("arcana")}>
+                {content.arcanaAction}
+                <ArrowRight className="home-link__arrow" strokeWidth={1.5} aria-hidden="true" />
+              </button>
+            }
+          />
+        </div>
+        <ArcanaRail cards={localizedArcana} openLabel={content.arcanaOpenLabel} onOpen={openCard} />
+      </section>
+
+      <section className="home-section home-section--spreads">
+        <div className="home-container">
+          <HomeSectionHeader title={content.spreadsTitle} text={content.spreadsText} />
+          <SpreadShowcase spreads={featuredSpreads} content={content} onChoose={chooseSpread} />
+        </div>
+      </section>
+
+      <section className="home-section home-section--pillars">
+        <div className="home-container">
+          <HomeSectionHeader title={content.pillarsTitle} />
+          <ul className="home-pillars">
             {content.pillars.map((pillar) => (
-              <li key={pillar.title} className="home-pillar-item">
-                <div className="home-pillar-item__body">
-                  <h4 className="home-pillar-item__title font-display">{pillar.title}</h4>
-                  <p className="home-pillar-item__text">{pillar.text}</p>
-                </div>
+              <li key={pillar.title} className="home-pillar">
+                <PillarGlyph icon={pillar.icon} />
+                <h3 className="home-pillar__title font-display">{pillar.title}</h3>
+                <p className="home-pillar__text">{pillar.text}</p>
               </li>
             ))}
-          </ol>
-        </ZenSection>
-      </div>
+          </ul>
+        </div>
+      </section>
 
-      <ZenSection
-        className="home-about-section"
-        title={content.aboutTitle}
-        compactHeader
-      >
-        <div className="home-editorial">
-          <div className="home-editorial__copy">
-            <p className="home-about-lead">{content.aboutText}</p>
-            <div className="home-approach">
-              <h4 className="home-approach__label">{copy.homeApproach}</h4>
-              <ul className="home-approach__list">
-                {content.aboutPoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
+      <section className="home-section home-section--about">
+        <div className="home-container home-about">
+          <div className="home-about__statement">
+            <div className="zen-accent-bar home-about__rule" aria-hidden="true" />
+            <h2 className="home-about__title font-display">{content.aboutTitle}</h2>
+            <p className="home-about__lead">{content.aboutText}</p>
+          </div>
+          <div className="home-about__approach">
+            <h3 className="home-section__eyebrow">{copy.homeApproach}</h3>
+            <ul className="home-about__list">
+              {content.aboutPoints.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
           </div>
         </div>
-      </ZenSection>
+      </section>
 
       {news.length > 0 ? (
-        <ZenSection
-          className="home-news-section"
-          title={content.newsTitle}
-          subtitle={content.newsSubtitle}
-          compactHeader
-        >
-          <div className="md:hidden">
-            <Carousel className="mx-auto w-full max-w-xl">
-              <CarouselContent>
-                {news.slice(0, 6).map((item) => (
-                  <CarouselItem key={item.id}>
-                    <button
-                      type="button"
-                      className={[
-                        "home-news-item group w-full text-left",
-                        item.coverImageUrl ? "home-news-item--has-cover" : "",
-                      ].join(" ")}
-                      aria-label={`${copy.newsOpenArticle}: ${item.title}`}
-                      onClick={() => openNewsArticle(item.id)}
-                    >
-                      {item.coverImageUrl ? (
-                        <figure className="home-news-item__media">
-                          <img
-                            src={item.coverImageUrl}
-                            alt=""
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </figure>
-                      ) : null}
-                      <div className="home-news-item__meta">
+        <section className="home-section home-section--news home-news-section">
+          <div className="home-container">
+            <HomeSectionHeader title={content.newsTitle} text={content.newsSubtitle} />
+
+            <div className="md:hidden">
+              <Carousel className="mx-auto w-full max-w-xl">
+                <CarouselContent>
+                  {news.slice(0, 6).map((item) => (
+                    <CarouselItem key={item.id}>
+                      <button
+                        type="button"
+                        className="home-news-item group w-full text-left"
+                        aria-label={`${copy.newsOpenArticle}: ${item.title}`}
+                        onClick={() => openNewsArticle(item.id)}
+                      >
+                        {item.coverImageUrl ? (
+                          <span className="home-news-item__media">
+                            <img src={item.coverImageUrl} alt="" loading="lazy" decoding="async" />
+                          </span>
+                        ) : null}
+                        <span className="home-news-item__meta">
+                          <span>{item.tag}</span>
+                          <span>{item.date}</span>
+                        </span>
+                        <span className="font-display home-news-item__title">{item.title}</span>
+                        <span className="home-news-item__summary">{item.summary}</span>
+                      </button>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-0" />
+                <CarouselNext className="right-0" />
+              </Carousel>
+            </div>
+
+            <div className="home-news-index hidden md:block">
+              {news.slice(0, 3).map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className="home-news-item group w-full text-left"
+                  aria-label={`${copy.newsOpenArticle}: ${item.title}`}
+                  onClick={() => openNewsArticle(item.id)}
+                >
+                  <span
+                    className={[
+                      "home-news-item__grid",
+                      item.coverImageUrl ? "home-news-item__grid--with-media" : "",
+                    ].join(" ")}
+                  >
+                    {item.coverImageUrl ? (
+                      <span className="home-news-item__media">
+                        <img src={item.coverImageUrl} alt="" loading="lazy" decoding="async" />
+                      </span>
+                    ) : null}
+                    <span>
+                      <span className="home-news-item__meta">
                         <span>{item.tag}</span>
                         <span>{item.date}</span>
-                      </div>
-                      <h4 className="font-display home-news-item__title">{item.title}</h4>
-                      <p className="home-news-item__summary">{item.summary}</p>
-                    </button>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-0" />
-              <CarouselNext className="right-0" />
-            </Carousel>
-          </div>
-
-          <div className="home-news-index hidden md:block">
-            {news.slice(0, 3).map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={[
-                  "home-news-item group w-full text-left",
-                  item.coverImageUrl ? "home-news-item--has-cover" : "",
-                ].join(" ")}
-                aria-label={`${copy.newsOpenArticle}: ${item.title}`}
-                onClick={() => openNewsArticle(item.id)}
-              >
-                <div
-                  className={[
-                    "home-news-item__grid",
-                    item.coverImageUrl ? "home-news-item__grid--with-media" : "",
-                  ].join(" ")}
-                >
-                  {item.coverImageUrl ? (
-                    <figure className="home-news-item__media">
-                      <img
-                        src={item.coverImageUrl}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </figure>
-                  ) : null}
-                  <div>
-                    <div className="home-news-item__meta">
-                      <span>{item.tag}</span>
-                      <span>{item.date}</span>
-                    </div>
-                    <h4 className="font-display home-news-item__title">{item.title}</h4>
-                  </div>
-                  <div>
-                    <p className="home-news-item__summary">{item.summary}</p>
-                    <span className="home-news-item__cta">
-                      {copy.newsOpenArticle}
-                      <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+                      </span>
+                      <span className="font-display home-news-item__title">{item.title}</span>
                     </span>
-                  </div>
-                </div>
-              </button>
-            ))}
+                    <span>
+                      <span className="home-news-item__summary">{item.summary}</span>
+                      <span className="home-link">
+                        {copy.newsOpenArticle}
+                        <ArrowRight className="home-link__arrow" strokeWidth={1.5} aria-hidden="true" />
+                      </span>
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
-        </ZenSection>
+        </section>
       ) : null}
     </div>
   );

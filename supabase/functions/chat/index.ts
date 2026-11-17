@@ -12,6 +12,12 @@ import {
   type TarotChatContext,
 } from "../_shared/chat-helpers.ts";
 import { isRateLimited } from "../_shared/rate-limit.ts";
+import {
+  RequestGuardError,
+  isWithinSize,
+  pickLanguage,
+  readJsonBody,
+} from "../_shared/request-guards.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") ?? "*",
@@ -53,8 +59,19 @@ serve(async (request) => {
   }
 
   try {
-    const body = await request.json();
-    const context = (body.context ?? { language: headerLanguage }) as TarotChatContext;
+    const body = (await readJsonBody(request)) as Record<string, unknown> | null;
+    if (!body || typeof body !== "object") {
+      return jsonResponse(400, { error: "Invalid request body." });
+    }
+
+    const rawContext = body.context ?? { language: headerLanguage };
+    if (typeof rawContext !== "object" || rawContext === null || !isWithinSize(rawContext)) {
+      return jsonResponse(413, { error: "Reading context is too large." });
+    }
+
+    const context = rawContext as TarotChatContext;
+    context.language = pickLanguage(context.language, headerLanguage);
+    context.deepMode = context.deepMode === true;
     const messages = sanitizeMessages(body.messages);
     const userMessage = messages[messages.length - 1]?.content;
 
@@ -135,8 +152,12 @@ serve(async (request) => {
 
     return jsonResponse(200, { reply });
   } catch (error) {
-    return jsonResponse(500, {
-      error: error instanceof Error ? error.message : "Unexpected chat error.",
-    });
+    if (error instanceof RequestGuardError) {
+      return jsonResponse(error.status, { error: error.message });
+    }
+
+    console.error("chat function failed", error);
+    const localized = providerErrorMessages[headerLanguage] ?? providerErrorMessages.pt;
+    return jsonResponse(500, { error: localized.unavailable });
   }
 });

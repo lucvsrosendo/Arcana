@@ -18,6 +18,7 @@
 @import "./styles/news-admin-zen.css";
 @import "./styles/system-zen-overrides.css";
 @import "./styles/settings-zen-overrides.css";
+@import "./styles/atmosphere.css";
 
 @tailwind base;
 @tailwind components;

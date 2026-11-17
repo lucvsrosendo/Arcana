@@ -30,7 +30,6 @@ export default defineConfig({
         manualChunks: {
           "vendor-react": ["react", "react-dom", "react-router-dom"],
           "vendor-supabase": ["@supabase/supabase-js"],
-          "vendor-analytics": ["posthog-js", "@sentry/react"],
           "vendor-motion": ["motion"],
         },
       },
@@ -46,9 +45,9 @@ export default defineConfig({
         short_name: "Tarot",
         start_url: "/",
         display: "standalone",
-        background_color: "#0e0e10",
-        theme_color: "#0e0e10",
-        description: "Leituras, diario, arcanos e oraculo de tarot.",
+        background_color: "#0c0b0f",
+        theme_color: "#0c0b0f",
+        description: "Tiragens, diário e os 22 Arcanos Maiores de Marselha — espelho simbólico, não previsão.",
         lang: "pt-BR",
         icons: [
           {
@@ -65,15 +64,16 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff,woff2}"],
-        globIgnores: ["**/tarot/cards/**"],
+        globIgnores: ["**/tarot/cards/**", "**/tarot/thumbs/**", "**/NewsAdminPanel-*.js"],
         runtimeCaching: [
           {
-            urlPattern: ({ url }) => url.pathname.startsWith("/tarot/cards/"),
+            urlPattern: ({ url }) =>
+              url.pathname.startsWith("/tarot/cards/") || url.pathname.startsWith("/tarot/thumbs/"),
             handler: "CacheFirst",
             options: {
               cacheName: "tarot-card-art",
               expiration: {
-                maxEntries: 40,
+                maxEntries: 80,
                 maxAgeSeconds: 60 * 60 * 24 * 30,
               },
               cacheableResponse: {

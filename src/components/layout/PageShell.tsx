@@ -17,7 +17,7 @@ export function PageShell({
   return (
     <div
       className={cn(
-        fullBleed ? "w-full" : editorial ? "zen-container py-20 md:py-28" : "px-0 py-8",
+        fullBleed ? "w-full" : editorial ? "zen-container pt-8 pb-20 md:pt-12 md:pb-28" : "px-0 py-8",
         !fullBleed && !editorial && "zen-page",
         className,
       )}

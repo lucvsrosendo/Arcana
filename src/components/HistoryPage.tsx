@@ -176,6 +176,7 @@ export function HistoryPage() {
                     name={card.name}
                     number={card.number}
                     artwork={card.artwork}
+                    sizes="96px"
                   />
                   <div className="history-frequency-name">
                     <p>{card.name}</p>

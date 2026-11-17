@@ -233,6 +233,7 @@ export function ArcanaPage() {
                     number={card.number}
                     artwork={card.artwork}
                     className="arcana-tile-image"
+                    sizes="96px"
                   />
                 </span>
                 <span className="arcana-tile-number">
@@ -264,6 +265,7 @@ export function ArcanaPage() {
                           number={card.number}
                           artwork={card.artwork}
                           className="arcana-tile-image"
+                          sizes="(min-width: 640px) 25vw, 30vw"
                         />
                       </span>
                       <span className="arcana-tile-number">

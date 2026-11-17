@@ -82,7 +82,7 @@ describe("HomePage", () => {
     render(<HomePage onNavigate={onNavigate} />);
 
     fireEvent.click(
-      screen.getAllByRole("button", { name: /Abrir noticia: Atualizacao do oraculo/i })[0]!,
+      screen.getAllByRole("button", { name: /Abrir notícia: Atualizacao do oraculo/i })[0]!,
     );
 
     expect(openNewsArticle).toHaveBeenCalledWith("news-home-1");

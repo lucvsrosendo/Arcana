@@ -163,7 +163,7 @@ export const majorArcana: TarotCard[] = [
   ),
   card(
     "strength",
-    8,
+    11,
     "A Força",
     "Coragem serena, paciência e domínio gentil dos instintos.",
     ["coragem", "vitalidade", "paciência"],
@@ -211,7 +211,7 @@ export const majorArcana: TarotCard[] = [
   ),
   card(
     "justice",
-    11,
+    8,
     "A Justica",
     "Equilibrio, consequencia e honestidade com os fatos.",
     ["verdade", "equilibrio", "decisão"],

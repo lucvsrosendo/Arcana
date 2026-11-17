@@ -1,0 +1,223 @@
+/* Atmosphere — shared ambience, Marseille ornament, shell polish (loaded last) */
+
+/* ── Ambient light + paper grain ──────────────────────────── */
+.theme-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(110% 60% at 50% -12%, hsl(var(--primary) / 0.07), transparent 62%),
+    radial-gradient(120% 80% at 50% 120%, hsl(var(--foreground) / 0.025), transparent 60%);
+}
+
+.theme-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 180px 180px;
+  opacity: 0.045;
+}
+
+:root[data-theme="minimal"] .theme-root::after {
+  opacity: 0.08;
+  filter: invert(1);
+}
+
+/* Replace the old flat washes that tinted every page */
+.app-shell:not(.is-home)::before {
+  background: none;
+}
+
+/* ── Marseille tricolor rule: vermilion, ochre, cobalt ────── */
+.zen-accent-bar {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--pigment-vermilion)) 0 33.33%,
+    hsl(var(--pigment-ochre)) 33.33% 66.66%,
+    hsl(var(--pigment-cobalt)) 66.66% 100%
+  );
+  opacity: 0.85;
+}
+
+/* ── Type details ─────────────────────────────────────────── */
+::selection {
+  background: hsl(var(--primary) / 0.32);
+  color: hsl(var(--foreground));
+}
+
+html {
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.font-display em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* ── Navigation island ────────────────────────────────────── */
+.app-nav__inner {
+  background: hsl(var(--background) / 0.82);
+  border-color: hsl(var(--border) / 0.7);
+}
+
+.app-nav__brand {
+  font-weight: 500;
+}
+
+.app-nav__brand-mark {
+  letter-spacing: 0.22em;
+}
+
+.app-nav__link {
+  letter-spacing: 0.14em;
+}
+
+.app-nav__link.is-active::after {
+  left: 50%;
+  right: auto;
+  bottom: -0.6rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  translate: -50% 0;
+  rotate: 45deg;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.app-footer {
+  margin-top: 0;
+  padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+  border-top: 1px solid hsl(var(--border) / 0.6);
+  text-align: left;
+}
+
+.app-footer__inner,
+.app-footer__base {
+  width: min(76rem, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.app-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem 3rem;
+}
+
+.app-footer__accent {
+  width: 3rem;
+  margin: 0 0 1.35rem;
+}
+
+.app-footer__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.app-footer__mark {
+  display: inline;
+  margin: 0;
+  letter-spacing: 0.22em;
+}
+
+.app-footer__tagline {
+  margin: 0.6rem 0 0;
+  max-width: 30rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+}
+
+.app-footer__nav {
+  justify-content: flex-start;
+  gap: 0.5rem 1.75rem;
+  margin: 0;
+}
+
+.app-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  letter-spacing: 0.14em;
+}
+
+.app-footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid hsl(var(--border) / 0.45);
+}
+
+.app-footer__meta {
+  max-width: 44rem;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* ── Consent: floating card instead of a squeezed strip ───── */
+.consent-strip {
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  max-width: 27rem;
+  padding: 1.25rem 1.25rem 1rem;
+  border: 1px solid hsl(var(--border) / 0.85);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card) / 0.97);
+  box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.65);
+}
+
+.consent-strip__inner {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  max-width: none;
+}
+
+.consent-strip__text {
+  flex: none;
+}
+
+.consent-strip__title {
+  margin-bottom: 0.4rem;
+}
+
+.consent-strip__desc {
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.consent-strip__actions {
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .consent-strip {
+    left: auto;
+    right: 1.25rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .consent-strip {
+    background: hsl(var(--card));
+  }
+}

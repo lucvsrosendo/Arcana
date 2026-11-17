@@ -10,42 +10,42 @@ export const cardCombinations: CardCombination[] = [
   {
     cards: ["the-tower", "the-star"],
     title: "A Torre + A Estrela",
-    interpretation: "Crise seguida de cura: algo cai para que a esperança volte sem ilusao.",
+    interpretation: "Crise seguida de cura: algo cai para que a esperança volte sem ilusão.",
   },
   {
     cards: ["death", "temperance"],
-    title: "A Morte + A Temperanca",
-    interpretation: "Encerramento que precisa de tempo, cuidado e reintegracao.",
+    title: "A Morte + A Temperança",
+    interpretation: "Encerramento que precisa de tempo, cuidado e reintegração.",
   },
   {
     cards: ["the-moon", "the-sun"],
     title: "A Lua + O Sol",
-    interpretation: "Confusao dando lugar a clareza; cheque fatos antes da conclusao final.",
+    interpretation: "Confusão dando lugar à clareza; cheque fatos antes da conclusão final.",
   },
   {
     cards: ["the-fool", "the-magician"],
     title: "O Louco + O Mago",
-    interpretation: "Inicio potente: coragem e ferramenta aparecem juntas.",
+    interpretation: "Início potente: coragem e ferramenta aparecem juntas.",
   },
   {
     cards: ["the-devil", "the-tower"],
     title: "O Diabo + A Torre",
-    interpretation: "Libertacao intensa de apegos, dependências ou pactos desgastados.",
+    interpretation: "Libertação intensa de apegos, dependências ou pactos desgastados.",
   },
   {
     cards: ["justice", "judgement"],
-    title: "A Justica + O Julgamento",
-    interpretation: "Acerto de contas maduro: verdade, consequencia e renascimento.",
+    title: "A Justiça + O Julgamento",
+    interpretation: "Acerto de contas maduro: verdade, consequência e renascimento.",
   },
   {
     cards: ["the-high-priestess", "the-moon"],
     title: "A Sacerdotisa + A Lua",
-    interpretation: "Intuicao profunda, mas com risco de projecao; registre sinais antes de concluir.",
+    interpretation: "Intuição profunda, mas com risco de projeção; registre sinais antes de concluir.",
   },
   {
     cards: ["the-emperor", "the-hierophant"],
     title: "O Imperador + O Hierofante",
-    interpretation: "Estrutura e tradicao: regras podem proteger, mas tambem engessar.",
+    interpretation: "Estrutura e tradição: regras podem proteger, mas também engessar.",
   },
   {
     cards: ["the-lovers", "the-devil"],
@@ -55,7 +55,7 @@ export const cardCombinations: CardCombination[] = [
   {
     cards: ["the-chariot", "strength"],
     title: "O Carro + A Força",
-    interpretation: "Avanco com dominio interno: velocidade so funciona com maturidade emocional.",
+    interpretation: "Avanço com domínio interno: velocidade só funciona com maturidade emocional.",
   },
   {
     cards: ["the-hermit", "the-star"],
@@ -64,7 +64,7 @@ export const cardCombinations: CardCombination[] = [
   },
   {
     cards: ["temperance", "the-world"],
-    title: "A Temperanca + O Mundo",
-    interpretation: "Integracao bem-sucedida: pequenos ajustes completam um ciclo maior.",
+    title: "A Temperança + O Mundo",
+    interpretation: "Integração bem-sucedida: pequenos ajustes completam um ciclo maior.",
   },
 ];

@@ -1,5 +1,4 @@
-import * as Sentry from "@sentry/react";
-import posthog from "posthog-js";
+import type { PostHog } from "posthog-js";
 
 type AnalyticsEvent = {
   name: string;
@@ -29,27 +28,29 @@ const posthogKey = import.meta.env.VITE_POSTHOG_KEY as string | undefined;
 const posthogHost = (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ?? "https://us.i.posthog.com";
 const sentryDsn = import.meta.env.VITE_SENTRY_DSN as string | undefined;
 
-let initialized = false;
-let sentryInitialized = false;
+let posthogClient: PostHog | null = null;
+let initStarted = false;
 
 export const trackEvent = ({ name, properties }: AnalyticsEvent) => {
   if (!isEnabled()) {
     return;
   }
 
-  if (initialized) {
-    posthog.capture(name, properties);
+  if (posthogClient) {
+    posthogClient.capture(name, properties);
     return;
   }
 
-  console.info("[analytics]", name, properties ?? {});
+  if (import.meta.env.DEV) {
+    console.info("[analytics]", name, properties ?? {});
+  }
 };
 
 export const trackPageView = (path: string) => {
   trackEvent({ name: "page_view", properties: { path } });
 
-  if (initialized) {
-    posthog.capture("$pageview", { path });
+  if (posthogClient) {
+    posthogClient.capture("$pageview", { path });
   }
 };
 
@@ -60,30 +61,37 @@ export const trackReadingFunnel = (
   trackEvent({ name: `reading_${step}`, properties });
 };
 
+// Sentry and PostHog are ~200 KB together; they are fetched only after consent.
 export const initAnalytics = () => {
-  if (typeof window === "undefined") {
+  if (typeof window === "undefined" || initStarted) {
     return;
   }
 
-  if (sentryDsn && !sentryInitialized) {
-    Sentry.init({
-      dsn: sentryDsn,
-      environment: import.meta.env.MODE,
+  initStarted = true;
+
+  if (sentryDsn) {
+    void import("@sentry/react").then((Sentry) => {
+      Sentry.init({
+        dsn: sentryDsn,
+        environment: import.meta.env.MODE,
+      });
     });
-    sentryInitialized = true;
   }
 
-  if (!isEnabled() || initialized) {
+  if (!isEnabled()) {
     return;
   }
 
   if (posthogKey) {
-    posthog.init(posthogKey, {
-      api_host: posthogHost,
-      capture_pageview: false,
-      capture_pageleave: true,
+    void import("posthog-js").then(({ default: posthog }) => {
+      posthog.init(posthogKey, {
+        api_host: posthogHost,
+        capture_pageview: false,
+        capture_pageleave: true,
+      });
+      posthogClient = posthog;
+      posthog.capture("$pageview", { path: window.location.pathname });
     });
-    initialized = true;
   }
 
   window.addEventListener("error", (event) => {

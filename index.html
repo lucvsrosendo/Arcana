@@ -2,17 +2,67 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta
       name="description"
-      content="Organize o que voce ja sente. Tiragens rapidas, 22 Arcanos Maiores Marseille e diario pra notar padroes — sem previsao, so clareza."
+      content="Organize o que você já sente. Tiragens rápidas, os 22 Arcanos Maiores de Marselha e um diário para notar padrões — sem previsão, só clareza."
     />
-    <meta name="theme-color" content="#0e0e10" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#0c0b0f" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:site_name" content="Arcanos Maiores" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/icons/icon-192.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.svg" />
     <title>Arcanos Maiores — Tiragem e clareza</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #0c0b0f;
+        color: #f4efe6;
+      }
+      .boot-splash {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(60% 50% at 50% 40%, #1a1622 0%, #0c0b0f 70%);
+      }
+      .boot-splash__mark {
+        font: 500 0.72rem/1 Georgia, "Times New Roman", serif;
+        letter-spacing: 0.5em;
+        color: #c9a96a;
+        animation: boot-breathe 1.8s ease-in-out infinite;
+      }
+      @keyframes boot-breathe {
+        0%,
+        100% {
+          opacity: 0.35;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .boot-splash__mark {
+          animation: none;
+          opacity: 0.8;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot-splash" aria-hidden="true">
+        <span class="boot-splash__mark">XVIII</span>
+      </div>
+    </div>
+    <noscript>
+      <p style="padding: 2rem; font-family: Georgia, serif; text-align: center">
+        Ative o JavaScript para abrir a mesa de tarot.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

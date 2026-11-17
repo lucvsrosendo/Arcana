@@ -9,7 +9,16 @@ type ArcanaCardImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> & {
   number: number;
   artwork: ArcanaArtwork;
   priority?: boolean;
+  /** Rendered width hint; enables the 300px thumbnail via srcset. */
+  sizes?: string;
 };
+
+const CARD_SRC_PATTERN = /^\/tarot\/cards\/([a-z-]+)\.webp$/;
+
+function getCardSrcSet(src: string) {
+  const match = CARD_SRC_PATTERN.exec(src);
+  return match ? `/tarot/thumbs/${match[1]}.webp 300w, ${src} 540w` : undefined;
+}
 
 export function ArcanaCardImage({
   cardId,
@@ -18,6 +27,7 @@ export function ArcanaCardImage({
   number,
   artwork,
   priority = false,
+  sizes,
   alt = "",
   onError,
   ...props
@@ -35,16 +45,21 @@ export function ArcanaCardImage({
   const resolvedSrc = failed
     ? createArcanaArtwork({ name, number, artwork })
     : src;
+  const srcSet = !failed && sizes ? getCardSrcSet(src) : undefined;
+  // React 18 only forwards the lowercase attribute to the DOM.
+  const priorityAttrs = { fetchpriority: priority ? "high" : "auto" } as Record<string, string>;
 
   return (
     <img
       src={resolvedSrc}
+      srcSet={srcSet}
+      sizes={srcSet ? sizes : undefined}
       alt={alt}
       width={540}
       height={810}
       loading={priority ? "eager" : "lazy"}
-      decoding="async"
-      fetchPriority={priority ? "high" : "auto"}
+      decoding={priority ? "sync" : "async"}
+      {...priorityAttrs}
       onError={failed ? undefined : handleError}
       data-card-id={cardId}
       {...props}

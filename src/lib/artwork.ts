@@ -31,6 +31,9 @@ const romanNumerals = [
   "XXI",
 ];
 
+/** Additive numerals as printed on Marseille cards (IIII, VIIII…). */
+export const getMarseilleNumeral = (number: number) => romanNumerals[number] ?? String(number);
+
 const escapeSvgText = (value: string) =>
   value
     .replace(/&/g, "&amp;")

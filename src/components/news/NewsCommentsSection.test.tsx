@@ -149,7 +149,7 @@ describe("NewsCommentsSection composer", () => {
     authSession = null;
     renderSection();
 
-    expect(screen.getByText(/Faca login para comentar/i)).toBeTruthy();
+    expect(screen.getByText(/Faça login para comentar/i)).toBeTruthy();
     expect(screen.getByRole("textbox")).toBeTruthy();
     expect(
       (screen.getByRole("textbox") as HTMLTextAreaElement).disabled,
@@ -174,7 +174,7 @@ describe("NewsCommentsSection composer", () => {
 
     await waitFor(() => {
       expect(pushToast).toHaveBeenCalledWith(
-        expect.stringMatching(/tabela de comentarios ainda nao existe/i),
+        expect.stringMatching(/tabela de comentários ainda não existe/i),
         "error",
       );
     });
