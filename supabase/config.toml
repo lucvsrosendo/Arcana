@@ -45,6 +45,9 @@ verify_jwt = false
 [functions.interpret-card]
 verify_jwt = false
 
+[functions.send-digest]
+verify_jwt = true
+
 [edge_runtime]
 enabled = true
 policy = "per_worker"

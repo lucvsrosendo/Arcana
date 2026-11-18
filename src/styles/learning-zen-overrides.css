@@ -1,107 +1,279 @@
-/* ── Learning page – Marseille atelier overrides ───────────────────────────
-   Reading: redesign-preserve of spread gallery — ritual classic/gold,
-   fix broken Celtic/Eris diagrams, equal diagram stage, quiet copy. */
+/* Learning — Marselha noturna (aligned with home-marseille) */
 
-.learning-page .shadow-elegant,
-.learning-page .shadow-none {
-  box-shadow: none;
+.learning-page.learning-marseille {
+  --card-shadow-soft: 0 16px 30px -18px rgb(0 0 0 / 0.75);
+  display: block;
+  width: 100%;
+  isolation: isolate;
 }
 
-.learning-page .learning-spread-card,
-.learning-page .learning-tile {
+:root[data-theme="minimal"] .learning-page.learning-marseille {
+  --card-shadow-soft: 0 12px 24px -16px rgb(0 0 0 / 0.3);
+}
+
+.learning-page.learning-marseille .learning-section {
+  width: min(76rem, calc(100% - 2.5rem));
+  margin-inline: auto;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  border-top: 1px solid hsl(var(--border) / 0.55);
+}
+
+.learning-page.learning-marseille .learning-section__header {
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.learning-page.learning-marseille .learning-section__title {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+  color: hsl(var(--foreground));
+  text-wrap: balance;
+}
+
+.learning-page.learning-marseille .learning-section__text {
+  margin: 0.9rem 0 0;
+  max-width: 40rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.learning-page.learning-marseille .learning-hero {
   position: relative;
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  border-bottom: 0;
+  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  background: transparent;
 }
 
-.learning-page .learning-spread-card::before {
-  content: none !important;
+.learning-page.learning-marseille .learning-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 80% at 78% 42%, hsl(var(--primary) / 0.14), transparent 68%),
+    radial-gradient(40% 60% at 12% 80%, hsl(var(--primary) / 0.05), transparent 70%);
 }
 
-.learning-page .learning-hero-orbit {
+.learning-page.learning-marseille .learning-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 2rem;
+  width: min(76rem, calc(100% - 2.5rem));
+  margin-inline: auto;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .learning-page.learning-marseille .learning-hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+.learning-page.learning-marseille .learning-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 36rem;
+}
+
+.learning-page.learning-marseille .learning-intro-title {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.learning-page.learning-marseille .learning-intro-text {
+  margin: 1.15rem 0 0;
+  max-width: 38rem;
+  color: hsl(var(--muted-foreground));
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.7;
+}
+
+.learning-page.learning-marseille .learning-hero-art {
+  position: relative;
+  z-index: 1;
+  top: auto;
+  right: auto;
+  width: min(100%, 18rem);
+  height: 13.5rem;
+  margin-inline: auto;
+  transform: none;
+  opacity: 1;
+}
+
+.learning-page.learning-marseille .learning-hero-orbit {
   display: none;
 }
 
-/* ── Spread gallery cards ───────────────────────────────────────────────── */
+.learning-page.learning-marseille .learning-hero-art > .learning-mini-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5.1rem;
+  height: 7.7rem;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow-soft), 0 0 0 1px hsl(var(--border) / 0.35);
+  transform-origin: 50% 120%;
+  transition: transform 480ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
 
-.learning-page .learning-featured-grid {
-  gap: 0.85rem;
+.learning-page.learning-marseille .learning-hero-art .hero-card-one {
+  transform: translate(-50%, -52%) rotate(-22deg);
+}
+
+.learning-page.learning-marseille .learning-hero-art .hero-card-two {
+  transform: translate(-50%, -56%) rotate(-7deg);
+}
+
+.learning-page.learning-marseille .learning-hero-art .hero-card-three {
+  z-index: 2;
+  transform: translate(-50%, -58%) rotate(8deg);
+}
+
+.learning-page.learning-marseille .learning-hero-art .hero-card-four {
+  transform: translate(-50%, -52%) rotate(22deg);
+}
+
+.learning-page.learning-marseille .learning-hero:hover .hero-card-one {
+  transform: translate(-50%, -54%) rotate(-26deg);
+}
+
+.learning-page.learning-marseille .learning-hero:hover .hero-card-two {
+  transform: translate(-50%, -58%) rotate(-10deg);
+}
+
+.learning-page.learning-marseille .learning-hero:hover .hero-card-three {
+  transform: translate(-50%, -60%) rotate(11deg);
+}
+
+.learning-page.learning-marseille .learning-hero:hover .hero-card-four {
+  transform: translate(-50%, -54%) rotate(26deg);
+}
+
+/* ── Spread gallery ───────────────────────────────────────── */
+.learning-page.learning-marseille .learning-featured-grid {
+  display: grid;
+  gap: 1rem;
   align-items: stretch;
 }
 
-.learning-page .learning-spread-card {
-  display: grid;
-  grid-template-rows: auto minmax(7.5rem, 8.25rem) auto auto;
-  gap: 0.75rem;
-  min-height: 0;
-  height: 100%;
-  padding: 1.05rem 1.1rem 1.15rem;
-  overflow: hidden;
-  border-radius: var(--radius-sm);
-  transition:
-    border-color 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
-    background 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
-    box-shadow 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
-    transform 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
+@media (min-width: 720px) {
+  .learning-page.learning-marseille .learning-featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
 }
 
-.learning-page .learning-spread-header {
+@media (min-width: 1100px) {
+  .learning-page.learning-marseille .learning-featured-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.learning-page.learning-marseille .learning-spread-card {
+  position: relative;
   display: grid;
-  gap: 0.35rem;
-  min-height: 3.6rem;
+  grid-template-rows: auto minmax(7.25rem, 8rem) auto auto;
+  gap: 0.7rem;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 1.1rem 1.1rem 1.25rem;
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card) / 0.45);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    border-color 320ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    background-color 320ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1)),
+    translate 420ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.learning-page.learning-marseille .learning-spread-card::before {
+  content: none !important;
+}
+
+.learning-page.learning-marseille .learning-spread-card:hover {
+  border-color: hsl(var(--primary) / 0.45);
+  background: hsl(var(--card) / 0.78);
+  translate: 0 -2px;
+  transform: none;
+}
+
+.learning-page.learning-marseille .learning-spread-header {
+  display: grid;
+  gap: 0.4rem;
+  min-height: 3.4rem;
   align-content: start;
 }
 
-.learning-page .learning-spread-kicker {
+.learning-page.learning-marseille .learning-spread-kicker {
   display: flex;
   align-items: baseline;
-  gap: 0.45rem;
+  gap: 0.5rem;
   margin: 0;
   color: hsl(var(--muted-foreground));
-  font-size: 0.62rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   line-height: 1.35;
   text-transform: uppercase;
 }
 
-.learning-page .learning-spread-roman {
+.learning-page.learning-marseille .learning-spread-roman {
   display: inline;
   border: 0;
-  border-radius: 0;
   padding: 0;
   background: none;
-  color: hsl(var(--muted-foreground));
-  font-family: var(--font-display, ui-serif, Georgia, serif);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  color: hsl(var(--primary));
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
 }
 
-.learning-page .learning-spread-title {
+.learning-page.learning-marseille .learning-spread-title {
   margin: 0;
   color: hsl(var(--foreground));
-  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(1.35rem, 1.8vw, 1.65rem);
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-size: clamp(1.35rem, 1.8vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
   line-height: 1.15;
 }
 
-.learning-page .learning-spread-stage {
+.learning-page.learning-marseille .learning-spread-stage {
   display: grid;
   place-items: center;
   min-height: 0;
   height: 100%;
   overflow: hidden;
-  border-top: 1px solid hsl(var(--border) / 0.4);
-  border-bottom: 1px solid hsl(var(--border) / 0.4);
+  border-top: 1px solid hsl(var(--border) / 0.45);
+  border-bottom: 1px solid hsl(var(--border) / 0.45);
   padding-block: 0.55rem;
 }
 
-.learning-page .learning-spread-description {
+.learning-page.learning-marseille .learning-spread-description {
   margin: 0;
   color: hsl(var(--muted-foreground));
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.8rem;
+  line-height: 1.55;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -109,11 +281,11 @@
   overflow: hidden;
 }
 
-.learning-page .learning-spread-example {
+.learning-page.learning-marseille .learning-spread-example {
   margin: 0;
-  color: hsl(var(--muted-foreground) / 0.85);
-  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
-  font-size: 0.88rem;
+  color: hsl(var(--foreground) / 0.78);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
   font-style: italic;
   font-weight: 400;
   line-height: 1.4;
@@ -124,9 +296,8 @@
   overflow: hidden;
 }
 
-/* ── Diagram shells ─────────────────────────────────────────────────────── */
-
-.learning-page .learning-spread-diagram {
+/* ── Diagrams (preserve geometry) ─────────────────────────── */
+.learning-page.learning-marseille .learning-spread-diagram {
   position: relative;
   display: flex;
   width: 100%;
@@ -138,78 +309,74 @@
   isolation: isolate;
 }
 
-.learning-page .learning-spread-diagram::before,
-.learning-page .learning-spread-diagram::after {
+.learning-page.learning-marseille .learning-spread-diagram::before,
+.learning-page.learning-marseille .learning-spread-diagram::after {
   content: none;
 }
 
-/* Mini faces: size only — never force position:relative (breaks Celtic). */
-.learning-page .learning-spread-diagram .free-tarot-face,
-.learning-page .learning-spread-diagram .learning-mini-card {
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram .learning-mini-card {
   box-sizing: border-box;
   width: 1.85rem;
   height: 2.85rem;
   flex: 0 0 auto;
-  border-radius: var(--radius-sm);
+  border-radius: 5px;
   box-shadow: none;
   overflow: hidden;
   display: block;
 }
 
-.learning-page .learning-spread-diagram .free-tarot-face::before,
-.learning-page .learning-spread-diagram .free-tarot-face::after,
-.learning-page .learning-spread-diagram .learning-mini-card::before,
-.learning-page .learning-spread-diagram .learning-mini-card::after {
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-face::before,
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-face::after,
+.learning-page.learning-marseille .learning-spread-diagram .learning-mini-card::before,
+.learning-page.learning-marseille .learning-spread-diagram .learning-mini-card::after {
   content: none;
   display: none;
 }
 
-.learning-page .learning-spread-diagram .free-tarot-back-art {
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-back-art {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.learning-page .learning-spread-diagram .free-tarot-back-orbit,
-.learning-page .learning-spread-diagram .free-tarot-back-mark,
-.learning-page .learning-spread-diagram .free-tarot-back-lines {
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-back-orbit,
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-back-mark,
+.learning-page.learning-marseille .learning-spread-diagram .free-tarot-back-lines {
   display: none;
 }
 
-.learning-page .learning-spread-diagram.is-three .free-tarot-face,
-.learning-page .learning-spread-diagram.is-three .learning-mini-card {
+.learning-page.learning-marseille .learning-spread-diagram.is-three .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-three .learning-mini-card {
   width: 1.7rem;
   height: 2.6rem;
 }
 
-.learning-page .learning-spread-diagram.is-four .free-tarot-face,
-.learning-page .learning-spread-diagram.is-four .learning-mini-card {
+.learning-page.learning-marseille .learning-spread-diagram.is-four .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-four .learning-mini-card {
   width: 1.45rem;
   height: 2.25rem;
 }
 
-.learning-page .learning-spread-diagram.is-daily .free-tarot-face,
-.learning-page .learning-spread-diagram.is-daily .learning-mini-card,
-.learning-page .learning-spread-diagram.is-single .free-tarot-face,
-.learning-page .learning-spread-diagram.is-single .learning-mini-card {
+.learning-page.learning-marseille .learning-spread-diagram.is-daily .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-daily .learning-mini-card,
+.learning-page.learning-marseille .learning-spread-diagram.is-single .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-single .learning-mini-card {
   width: 2.15rem;
   height: 3.3rem;
 }
 
-/* Flex row diagrams keep relative faces */
-.learning-page .learning-spread-diagram.is-three .free-tarot-face,
-.learning-page .learning-spread-diagram.is-four .free-tarot-face,
-.learning-page .learning-spread-diagram.is-daily .free-tarot-face,
-.learning-page .learning-spread-diagram.is-single .free-tarot-face,
-.learning-page .learning-spread-diagram.is-eris .free-tarot-face {
+.learning-page.learning-marseille .learning-spread-diagram.is-three .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-four .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-daily .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-single .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .free-tarot-face {
   position: relative;
   inset: auto;
 }
 
-/* ── Celtic Cross — CSS grid (10 positions) ─────────────────────────────── */
-
-.learning-page .learning-spread-diagram.is-celtic {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic {
   display: grid;
   grid-template-columns: 1.15rem 1.15rem 1.15rem 0.55rem 1.15rem;
   grid-template-rows: repeat(4, 1.7rem);
@@ -222,8 +389,8 @@
   place-items: center;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .free-tarot-face,
-.learning-page .learning-spread-diagram.is-celtic .learning-mini-card {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .learning-mini-card {
   position: relative;
   inset: auto;
   left: auto;
@@ -236,17 +403,17 @@
   border-radius: 0.15rem;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-top {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-top {
   grid-column: 2;
   grid-row: 1;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-left {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-left {
   grid-column: 1;
   grid-row: 2;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .celtic-core {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .celtic-core {
   position: relative;
   grid-column: 2;
   grid-row: 2;
@@ -254,53 +421,49 @@
   height: 1.65rem;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .celtic-core .card-center,
-.learning-page .learning-spread-diagram.is-celtic .celtic-core .card-cross {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .celtic-core .card-center,
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .celtic-core .card-cross {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .celtic-core .card-cross {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .celtic-core .card-cross {
   transform: rotate(90deg);
   z-index: 1;
-  left: 0;
-  top: 0;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-right {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-right {
   grid-column: 3;
   grid-row: 2;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-bottom {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-bottom {
   grid-column: 2;
   grid-row: 3;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-pillar-one {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-pillar-one {
   grid-column: 5;
   grid-row: 1;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-pillar-two {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-pillar-two {
   grid-column: 5;
   grid-row: 2;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-pillar-three {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-pillar-three {
   grid-column: 5;
   grid-row: 3;
 }
 
-.learning-page .learning-spread-diagram.is-celtic .card-pillar-four {
+.learning-page.learning-marseille .learning-spread-diagram.is-celtic .card-pillar-four {
   grid-column: 5;
   grid-row: 4;
 }
 
-/* ── Hand of Eris ───────────────────────────────────────────────────────── */
-
-.learning-page .learning-spread-diagram.is-eris {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: auto auto;
@@ -312,8 +475,8 @@
   align-items: center;
 }
 
-.learning-page .learning-spread-diagram.is-eris .free-tarot-face,
-.learning-page .learning-spread-diagram.is-eris .learning-mini-card {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .free-tarot-face,
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .learning-mini-card {
   width: 1.35rem;
   height: 2.1rem;
   border-radius: 0.15rem;
@@ -322,178 +485,278 @@
   transform: none;
 }
 
-.learning-page .learning-spread-diagram.is-eris .card-index {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .card-index {
   grid-column: 1;
   grid-row: 1;
 }
 
-.learning-page .learning-spread-diagram.is-eris .card-middle {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .card-middle {
   grid-column: 2;
   grid-row: 1;
 }
 
-.learning-page .learning-spread-diagram.is-eris .card-ring {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .card-ring {
   grid-column: 3;
   grid-row: 1;
 }
 
-.learning-page .learning-spread-diagram.is-eris .card-thumb {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .card-thumb {
   grid-column: 1;
   grid-row: 2;
 }
 
-.learning-page .learning-spread-diagram.is-eris .card-little {
+.learning-page.learning-marseille .learning-spread-diagram.is-eris .card-little {
   grid-column: 3;
   grid-row: 2;
 }
 
-/* ── Guide / reference polish ───────────────────────────────────────────── */
-
-.learning-page .learning-quote {
-  display: block;
-  border: none;
-  border-left: 1px solid hsl(var(--border) / 0.9);
-  padding-left: 0.85rem;
-  background: transparent;
-  box-shadow: none;
-  margin: 0;
-}
-
-.learning-page .learning-guide-intro h2 {
-  line-height: 1.12;
-  font-weight: 300;
-  letter-spacing: -0.022em;
-}
-
-.learning-page .learning-guide-divider {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  color: hsl(var(--muted-foreground));
-  margin-block: 1rem;
-}
-
-.learning-page .learning-guide-divider > span {
-  flex: 1;
-  height: 1px;
-  background: hsl(var(--border) / 0.75);
-}
-
-.learning-page .learning-tip {
+/* ── Position guide ───────────────────────────────────────── */
+.learning-page.learning-marseille .learning-guide-list {
   display: grid;
-  gap: 0.35rem;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid hsl(var(--border) / 0.55);
+}
+
+.learning-page.learning-marseille .learning-guide-item {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  gap: 1rem 1.25rem;
+  margin: 0;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+}
+
+@media (min-width: 720px) {
+  .learning-page.learning-marseille .learning-guide-item {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: 1.5rem 2rem;
+    padding: 1.6rem 0;
+  }
+}
+
+.learning-page.learning-marseille .learning-position-number {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: hsl(var(--primary));
+  line-height: 1.2;
+}
+
+.learning-page.learning-marseille .learning-guide-item__title {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: hsl(var(--foreground));
+}
+
+.learning-page.learning-marseille .learning-guide-item__note {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.learning-page.learning-marseille .learning-guide-question {
+  margin: 0.85rem 0 0;
+  color: hsl(var(--foreground) / 0.82);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.learning-page.learning-marseille .learning-guide-question span {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-right: 0.45rem;
+}
+
+.learning-page.learning-marseille .learning-guide-question em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.learning-page.learning-marseille .learning-tip {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 2rem;
+  padding: 1.25rem 0 0;
   border: 0;
-  border-left: 1px solid hsl(var(--border) / 0.9);
+  border-top: 1px solid hsl(var(--border) / 0.55);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  padding: 0.15rem 0 0.15rem 0.95rem;
 }
 
-.learning-page .learning-tip strong {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+.learning-page.learning-marseille .learning-tip strong {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: hsl(var(--muted-foreground));
+  color: hsl(var(--primary));
 }
 
-.learning-page .learning-tip em {
+.learning-page.learning-marseille .learning-tip p {
+  margin: 0;
+  max-width: 40rem;
   font-family: var(--font-display);
+  font-size: 1.2rem;
   font-style: italic;
-  font-weight: 300;
-  color: hsl(var(--foreground));
+  font-weight: 400;
   line-height: 1.5;
+  color: hsl(var(--foreground));
 }
 
-.learning-page .learning-tip-mark,
-.learning-page .learning-tip-divider {
+.learning-page.learning-marseille .learning-tip-mark,
+.learning-page.learning-marseille .learning-tip-divider,
+.learning-page.learning-marseille .learning-guide-divider,
+.learning-page.learning-marseille .learning-section-mark,
+.learning-page.learning-marseille .learning-eyebrow,
+.learning-page.learning-marseille .learning-eyebrow-line {
   display: none;
 }
 
-.learning-page .learning-grid.two .learning-tile {
-  border-radius: var(--radius-sm);
-  padding: 1rem 1.05rem;
+/* ── Combinations ─────────────────────────────────────────── */
+.learning-page.learning-marseille .learning-pairs {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.learning-page .learning-grid.two .learning-tile-title::after {
-  content: none;
+@media (min-width: 860px) {
+  .learning-page.learning-marseille .learning-pairs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+  }
 }
 
-.learning-page .learning-section-mark {
-  display: block;
-  width: 1.65rem;
-  height: 1.65rem;
-  flex-shrink: 0;
-  border: 1px solid hsl(var(--border) / 0.9);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: transparent;
+.learning-page.learning-marseille .learning-pair {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.15rem 1.2rem 1.3rem;
+  border: 1px solid hsl(var(--border) / 0.65);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card) / 0.4);
+  transition: border-color 280ms var(--ease-ritual, cubic-bezier(0.32, 0.72, 0, 1));
 }
 
-.learning-page .learning-eyebrow {
+.learning-page.learning-marseille .learning-pair:hover {
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+.learning-page.learning-marseille .learning-pair__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: hsl(var(--foreground));
+}
+
+.learning-page.learning-marseille .learning-pair__text {
   margin: 0;
   color: hsl(var(--muted-foreground));
-  font-size: 0.78rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* ── Glossary ─────────────────────────────────────────────── */
+.learning-page.learning-marseille .learning-glossary {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  border-top: 1px solid hsl(var(--border) / 0.55);
+}
+
+.learning-page.learning-marseille .learning-glossary__item {
+  border: 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.learning-page.learning-marseille .learning-glossary__trigger {
+  padding: 1.05rem 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: none;
+  letter-spacing: -0.01em;
+  color: hsl(var(--foreground));
+  text-decoration: none;
 }
 
-.learning-page .learning-eyebrow-line {
-  display: none;
+.learning-page.learning-marseille .learning-glossary__trigger:hover {
+  text-decoration: none;
+  color: hsl(var(--primary));
 }
 
-.learning-page .learning-eyebrow svg {
-  display: none;
+.learning-page.learning-marseille .learning-glossary__content {
+  padding: 0 0 1.2rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.95rem;
+  line-height: 1.65;
+  max-width: 48rem;
 }
 
-/* Glass panels — beat product-surfaces opaque card fill */
-.app-shell:not(.is-home) .learning-page .learning-spread-card,
-.app-shell:not(.is-home) .learning-page .learning-tile {
-  background:
-    linear-gradient(145deg, hsl(var(--foreground) / 0.05), transparent 42%),
-    hsl(var(--card) / 0.28);
-  border: 1px solid hsl(var(--border) / 0.45);
-  box-shadow:
-    inset 0 1px 0 hsl(var(--foreground) / 0.12),
-    0 14px 40px -30px hsl(var(--foreground) / 0.28);
-  backdrop-filter: blur(16px) saturate(1.15);
-  -webkit-backdrop-filter: blur(16px) saturate(1.15);
-}
-
-.app-shell:not(.is-home) .learning-page .learning-spread-card:hover,
-.app-shell:not(.is-home) .learning-page .learning-tile:hover {
-  transform: none;
-  background:
-    linear-gradient(145deg, hsl(var(--foreground) / 0.07), transparent 42%),
-    hsl(var(--card) / 0.36);
-  border-color: hsl(var(--border) / 0.65);
-  box-shadow:
-    inset 0 1px 0 hsl(var(--foreground) / 0.14),
-    0 14px 40px -28px hsl(var(--foreground) / 0.32);
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .app-shell:not(.is-home) .learning-page .learning-spread-card,
-  .app-shell:not(.is-home) .learning-page .learning-tile {
-    background: hsl(var(--card) / 0.92);
-    border: 1px solid hsl(var(--border) / 0.85);
-    box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
-  .app-shell:not(.is-home) .learning-page .learning-spread-card:hover,
-  .app-shell:not(.is-home) .learning-page .learning-tile:hover {
-    background: hsl(var(--card) / 0.92);
-    border-color: hsl(var(--border));
-    box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.04);
-  }
+/* Legacy tile classes that may still appear via Accordion defaults */
+.learning-page.learning-marseille .learning-tile {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 @media (max-width: 719px) {
-  .learning-page .learning-spread-card {
-    grid-template-rows: auto minmax(6.75rem, 7.5rem) auto auto;
+  .learning-page.learning-marseille .learning-spread-card {
+    grid-template-rows: auto minmax(6.5rem, 7.25rem) auto auto;
+  }
+
+  .learning-page.learning-marseille .learning-hero-art {
+    height: 11.5rem;
+  }
+
+  .learning-page.learning-marseille .learning-hero-art > .learning-mini-card {
+    width: 4.2rem;
+    height: 6.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-page.learning-marseille .learning-hero-art > .learning-mini-card,
+  .learning-page.learning-marseille .learning-spread-card {
+    transition: none;
+  }
+
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-one,
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-two,
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-three,
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-four {
+    transform: translate(-50%, -52%) rotate(-22deg);
+  }
+
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-two {
+    transform: translate(-50%, -56%) rotate(-7deg);
+  }
+
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-three {
+    transform: translate(-50%, -58%) rotate(8deg);
+  }
+
+  .learning-page.learning-marseille .learning-hero:hover .hero-card-four {
+    transform: translate(-50%, -52%) rotate(22deg);
+  }
+
+  .learning-page.learning-marseille .learning-spread-card:hover {
+    translate: none;
   }
 }

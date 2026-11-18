@@ -18,55 +18,55 @@ import {
   pickLanguage,
   readJsonBody,
 } from "../_shared/request-guards.ts";
+import { buildCorsHeaders, isOriginAllowed } from "../_shared/cors.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") ?? "*",
-  Vary: "Origin",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, accept-language",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
-
-const jsonResponse = (status: number, payload: Record<string, unknown>) =>
+const jsonResponse = (request: Request, status: number, payload: Record<string, unknown>) =>
   new Response(JSON.stringify(payload), {
     status,
     headers: {
-      ...corsHeaders,
+      ...buildCorsHeaders(request),
       "Content-Type": "application/json; charset=utf-8",
       "Cache-Control": "no-store",
       "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "no-referrer",
+      "X-Frame-Options": "DENY",
     },
   });
 
 serve(async (request) => {
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders });
+    return new Response(null, { status: 204, headers: buildCorsHeaders(request) });
   }
 
   if (request.method !== "POST") {
-    return jsonResponse(405, { error: "Method not allowed" });
+    return jsonResponse(request, 405, { error: "Method not allowed" });
+  }
+
+  if (!isOriginAllowed(request)) {
+    return jsonResponse(request, 403, { error: "Origin not allowed." });
   }
 
   const headerLanguage = detectLanguage(request.headers.get("accept-language"));
 
   if (await isRateLimited(request)) {
     const localized = providerErrorMessages[headerLanguage] ?? providerErrorMessages.pt;
-    return jsonResponse(429, { error: localized.rateLimit });
+    return jsonResponse(request, 429, { error: localized.rateLimit });
   }
 
   if (!isGroqConfigured()) {
     const localized = providerErrorMessages[headerLanguage] ?? providerErrorMessages.pt;
-    return jsonResponse(503, { error: localized.missingKey });
+    return jsonResponse(request, 503, { error: localized.missingKey });
   }
 
   try {
     const body = (await readJsonBody(request)) as Record<string, unknown> | null;
     if (!body || typeof body !== "object") {
-      return jsonResponse(400, { error: "Invalid request body." });
+      return jsonResponse(request, 400, { error: "Invalid request body." });
     }
 
     const rawContext = body.context ?? { language: headerLanguage };
     if (typeof rawContext !== "object" || rawContext === null || !isWithinSize(rawContext)) {
-      return jsonResponse(413, { error: "Reading context is too large." });
+      return jsonResponse(request, 413, { error: "Reading context is too large." });
     }
 
     const context = rawContext as TarotChatContext;
@@ -76,12 +76,16 @@ serve(async (request) => {
     const userMessage = messages[messages.length - 1]?.content;
 
     if (typeof userMessage !== "string" || !userMessage.trim()) {
-      return jsonResponse(400, { error: "Missing user message." });
+      return jsonResponse(request, 400, { error: "Missing user message." });
     }
 
     let groqMessages = buildGroqMessages(context, messages);
 
-    if (body.enableWebSearch === true && typeof userMessage === "string") {
+    if (
+      Deno.env.get("ENABLE_WEB_SEARCH") === "true" &&
+      body.enableWebSearch === true &&
+      typeof userMessage === "string"
+    ) {
       const { webSearch } = await import("../_shared/web-search.ts");
       const searchSnippet = await webSearch(userMessage);
       groqMessages = [
@@ -93,7 +97,7 @@ serve(async (request) => {
       ];
     }
 
-    if (body.useAiSdk === true) {
+    if (Deno.env.get("ENABLE_AI_SDK") === "true" && body.useAiSdk === true) {
       const groq = createGroq({ apiKey: Deno.env.get("GROQ_API_KEY") });
       const systemMessage = groqMessages.find((message) => message.role === "system");
       const otherMessages = groqMessages.filter((message) => message.role !== "system");
@@ -108,9 +112,11 @@ serve(async (request) => {
 
       const response = result.toUIMessageStreamResponse({
         headers: {
-          ...corsHeaders,
+          ...buildCorsHeaders(request),
           "Cache-Control": "no-cache, no-transform",
           "X-Content-Type-Options": "nosniff",
+          "Referrer-Policy": "no-referrer",
+          "X-Frame-Options": "DENY",
         },
       });
 
@@ -135,7 +141,7 @@ serve(async (request) => {
 
     if (!groqResponse.ok) {
       const { getProviderErrorMessage } = await import("../_shared/chat-helpers.ts");
-      return jsonResponse(groqResponse.status, {
+      return jsonResponse(request, groqResponse.status, {
         error: getProviderErrorMessage(
           groqResponse.status,
           payload.error?.message,
@@ -147,17 +153,17 @@ serve(async (request) => {
     const reply = payload.choices?.[0]?.message?.content?.trim() ?? "";
 
     if (!reply) {
-      return jsonResponse(502, { error: "Groq returned an empty response." });
+      return jsonResponse(request, 502, { error: "Groq returned an empty response." });
     }
 
-    return jsonResponse(200, { reply });
+    return jsonResponse(request, 200, { reply });
   } catch (error) {
     if (error instanceof RequestGuardError) {
-      return jsonResponse(error.status, { error: error.message });
+      return jsonResponse(request, error.status, { error: error.message });
     }
 
     console.error("chat function failed", error);
     const localized = providerErrorMessages[headerLanguage] ?? providerErrorMessages.pt;
-    return jsonResponse(500, { error: localized.unavailable });
+    return jsonResponse(request, 500, { error: localized.unavailable });
   }
 });

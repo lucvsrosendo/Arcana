@@ -356,13 +356,13 @@ export function SettingsPage() {
   return (
     <PageShell>
       <TooltipProvider>
-        <div className="settings-page">
+        <div className="settings-page settings-marseille">
           <header className="settings-hero">
-            <p className="settings-hero-kicker mb-3 text-muted-foreground">{copy.account}</p>
-            <h1 className="font-display text-3xl font-light tracking-[-0.02em] md:text-5xl">
-              {copy.settingsTitle}
-            </h1>
-            <p className="settings-hero-lede">{copy.settingsSubtitle}</p>
+            <div className="settings-hero-copy">
+              <p className="settings-hero-kicker">{copy.account}</p>
+              <h1 className="settings-hero-title font-display">{copy.settingsTitle}</h1>
+              <p className="settings-hero-lede">{copy.settingsSubtitle}</p>
+            </div>
           </header>
 
           {isLoggedIn ? (

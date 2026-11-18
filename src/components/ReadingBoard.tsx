@@ -420,10 +420,18 @@ export function ReadingBoard() {
   }, []);
 
   return (
-    <PageShell className="reading-page">
+    <PageShell className="reading-page reading-marseille">
       <header className="reading-hero-bar">
         <div className="reading-title-block">
-          <h1 className="font-display text-architectural">{copy.reading}</h1>
+          <p className="reading-hero-kicker" aria-hidden="true">
+            {spread.title}
+          </p>
+          <h1 className="font-display">{copy.reading}</h1>
+          <p className="reading-hero-text">
+            {isShuffling
+              ? copy.cardsSettling
+              : `${spread.description} ${copy.meditationText}`}
+          </p>
         </div>
         <div className="reading-hero-actions">
           <button
@@ -455,7 +463,7 @@ export function ReadingBoard() {
                       setCommittedQuestion("");
                       setSpread(option.id);
                     }}
-                    className={option.id === spreadId ? "is-active" : ""}
+                    className={option.id === spreadId ? "is-active" : undefined}
                     disabled={isShuffling}
                   >
                     {option.title}
@@ -465,21 +473,16 @@ export function ReadingBoard() {
 
               <div className="free-tarot-game-header reading-stage-header">
                 <div>
-                  <p className="text-minimal text-muted-foreground">{copy.activeReading}</p>
-                  <h2 className="font-display text-architectural">
+                  <p className="reading-stage-label">{copy.activeReading}</p>
+                  <h2 className="font-display">
                     {isShuffling
                       ? copy.shuffling
                       : isAllRevealed
                         ? copy.allRevealed
                         : nextPosition
-                          ? `${revealedCount + 1}/${reading.length} - ${nextPosition.title}`
+                          ? `${revealedCount + 1}/${reading.length} — ${nextPosition.title}`
                           : spread.title}
                   </h2>
-                  <p>
-                    {isShuffling
-                      ? copy.cardsSettling
-                      : `${spread.description} ${copy.meditationText}`}
-                  </p>
                 </div>
               </div>
 

@@ -579,7 +579,9 @@
 
 .home-rail--marquee {
   display: flex;
-  overflow: hidden;
+  max-width: 100%;
+  min-width: 0;
+  overflow: clip;
   padding: 1.35rem 0 2.1rem;
   mask-image: linear-gradient(
     to right,

@@ -31,6 +31,7 @@
           "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), serial=(), hid=(), magnetometer=(), gyroscope=(), accelerometer=(), browsing-topics=()"
         },
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin-allow-popups" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" },
         { "key": "Origin-Agent-Cluster", "value": "?1" },
         {
           "key": "Content-Security-Policy",

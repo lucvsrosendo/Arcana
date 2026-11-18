@@ -494,14 +494,14 @@ export function NewsAdminPanel() {
   };
 
   return (
-    <PageShell className="news-admin-page">
+    <PageShell className="news-admin-page news-admin-desk">
       <div className="news-admin-shell">
         <header className="news-admin-hero">
-          <p className="text-minimal mb-4 text-muted-foreground">{copy.newsModeration}</p>
-          <h1 className="font-display text-architectural text-4xl font-light md:text-6xl">
-            {copy.newsPanelTitle}
-          </h1>
-          <p className="news-admin-hero-lede">{copy.newsPanelIntro}</p>
+          <div className="news-admin-hero-copy">
+            <p className="news-admin-hero-kicker">{copy.newsModeration}</p>
+            <h1 className="news-admin-hero-title">{copy.newsPanelTitle}</h1>
+            <p className="news-admin-hero-lede">{copy.newsPanelIntro}</p>
+          </div>
         </header>
 
         <Tabs
@@ -536,7 +536,7 @@ export function NewsAdminPanel() {
                 </header>
 
                 <form className="news-admin-rail-block news-admin-form" onSubmit={handleSubmit}>
-                  <div className="news-admin-field-grid">
+                  <div className="news-admin-field-grid news-admin-meta">
                     <label className="news-admin-field">
                       <span>{copy.newsDateLabel}</span>
                       <input
@@ -586,6 +586,8 @@ export function NewsAdminPanel() {
                     </label>
                   </div>
 
+                  <div className="news-admin-story">
+                    <div className="news-admin-story-copy">
                   <label className="news-admin-field">
                     <span>{copy.newsTitlePt}</span>
                     <input
@@ -594,7 +596,7 @@ export function NewsAdminPanel() {
                       onChange={(event) =>
                         setForm((current) => ({ ...current, title_pt: event.target.value }))
                       }
-                      className="news-admin-input"
+                      className="news-admin-input news-admin-input--title"
                       required
                     />
                   </label>
@@ -612,15 +614,18 @@ export function NewsAdminPanel() {
                       required
                     />
                   </label>
+                    </div>
 
-                  <div className="news-admin-field news-admin-cover-field">
+                  <div className="news-admin-story-cover news-admin-field news-admin-cover-field">
                     <span>{copy.newsCoverLabel}</span>
                     <p className="news-admin-cover-hint">{copy.newsCoverHint}</p>
                     {coverPreviewSrc ? (
                       <div className="news-admin-cover-preview">
                         <img src={coverPreviewSrc} alt="" />
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="news-admin-cover-preview news-admin-cover-preview--empty" />
+                    )}
                     <div className="news-admin-cover-actions">
                       <div
                         {...coverDropzone.getRootProps()}
@@ -645,6 +650,7 @@ export function NewsAdminPanel() {
                         </button>
                       ) : null}
                     </div>
+                  </div>
                   </div>
 
                   <NewsCoverCropDialog
@@ -777,7 +783,7 @@ export function NewsAdminPanel() {
                 </form>
               </section>
 
-              <section className="news-admin-cabinet news-admin-cabinet--stack news-admin-stream">
+              <section className="news-admin-cabinet news-admin-cabinet--stack news-admin-stream news-admin-archive">
                 <header className="news-admin-rail-block news-admin-rail-head">
                   <p className="news-admin-rail-kicker">{copy.latestNews}</p>
                   <p className="news-admin-count">
@@ -794,9 +800,17 @@ export function NewsAdminPanel() {
                     <ul className="news-admin-item-list">
                       {records.map((record, index) => (
                         <li key={record.id} className="news-admin-item">
-                          <span className="news-admin-item-mark" aria-hidden="true">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
+                          {record.cover_image_url ? (
+                            <img
+                              className="news-admin-item-cover"
+                              src={record.cover_image_url}
+                              alt=""
+                            />
+                          ) : (
+                            <span className="news-admin-item-mark" aria-hidden="true">
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                          )}
                           <div className="news-admin-item-main">
                             <div className="news-admin-item-meta">
                               <time>{record.date}</time>

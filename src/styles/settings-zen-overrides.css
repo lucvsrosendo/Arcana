@@ -745,3 +745,204 @@
     -webkit-backdrop-filter: none;
   }
 }
+
+/* ── Marselha (aligned with home / learn / arcana / tiragem) ─ */
+.settings-page.settings-marseille {
+  max-width: none;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.settings-page.settings-marseille .settings-hero {
+  display: block;
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 2.4rem) 0 1.6rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+  background:
+    radial-gradient(48% 120% at 92% 12%, hsl(var(--primary) / 0.12), transparent 70%);
+}
+
+.settings-page.settings-marseille .settings-hero-copy {
+  max-width: 38rem;
+}
+
+.settings-page.settings-marseille .settings-hero-kicker {
+  margin: 0 0 0.55rem;
+  color: hsl(var(--primary));
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: none;
+}
+
+.settings-page.settings-marseille .settings-hero-title {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.settings-page.settings-marseille .settings-hero-lede {
+  margin: 0.9rem 0 0;
+  max-width: 36rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.app-shell .settings-page.settings-marseille .settings-cabinet,
+.app-shell .settings-page.settings-marseille .settings-guest-plate,
+.app-shell .settings-page.settings-marseille .settings-privacy {
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card) / 0.42);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.settings-page.settings-marseille [role="tablist"] {
+  border-bottom-color: hsl(var(--border) / 0.55) !important;
+  gap: 0.15rem !important;
+  overflow-x: auto;
+}
+
+.settings-page.settings-marseille [role="tab"] {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  white-space: nowrap;
+}
+
+.settings-page.settings-marseille [role="tab"][data-state="active"] {
+  color: hsl(var(--foreground)) !important;
+  border-bottom-color: hsl(var(--primary)) !important;
+}
+
+.settings-page.settings-marseille .settings-identity-name {
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.settings-page.settings-marseille .settings-rail-kicker {
+  color: hsl(var(--primary));
+  letter-spacing: 0.16em;
+}
+
+.settings-page.settings-marseille .settings-field-input,
+.settings-page.settings-marseille .settings-select {
+  border-radius: var(--radius) !important;
+  border-color: hsl(var(--border) / 0.7) !important;
+  background: hsl(var(--background) / 0.55) !important;
+  box-shadow: none !important;
+}
+
+.settings-page.settings-marseille .settings-field-input:focus-visible,
+.settings-page.settings-marseille .settings-select:focus-visible {
+  border-color: hsl(var(--primary) / 0.55) !important;
+  box-shadow: var(--focus-ring, 0 0 0 3px hsl(var(--primary) / 0.18)) !important;
+}
+
+.settings-page.settings-marseille .settings-primary-action {
+  height: 2.65rem;
+  border: 1px solid hsl(var(--primary) / 0.55) !important;
+  border-radius: var(--radius) !important;
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--primary) / 0.14) !important;
+  box-shadow: none !important;
+  letter-spacing: 0.08em !important;
+}
+
+.settings-page.settings-marseille .settings-primary-action:hover {
+  border-color: hsl(var(--primary) / 0.75) !important;
+  background: hsl(var(--primary) / 0.22) !important;
+}
+
+.settings-page.settings-marseille .settings-quiet-action,
+.settings-page.settings-marseille .settings-row-action {
+  min-height: 2.35rem;
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: var(--radius);
+  background: transparent;
+  color: hsl(var(--foreground));
+  padding: 0.35rem 0.8rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.settings-page.settings-marseille .settings-quiet-action:hover,
+.settings-page.settings-marseille .settings-row-action:hover {
+  border-color: hsl(var(--primary) / 0.45);
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--foreground));
+  text-decoration: none;
+}
+
+.settings-page.settings-marseille .settings-row-action.is-danger {
+  border-color: hsl(var(--destructive) / 0.45);
+  color: hsl(var(--destructive));
+  background: transparent;
+}
+
+.settings-page.settings-marseille .settings-row-action.is-danger:hover {
+  background: hsl(var(--destructive) / 0.08);
+}
+
+.settings-page.settings-marseille .settings-mode-toggle {
+  border-radius: var(--radius) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.settings-page.settings-marseille .settings-mode-toggle[data-state="on"] {
+  border-color: hsl(var(--primary) / 0.5) !important;
+  background: hsl(var(--primary) / 0.1) !important;
+}
+
+.settings-page.settings-marseille .settings-xp-rules li,
+.settings-page.settings-marseille .settings-event-list li {
+  border-color: hsl(var(--border) / 0.45);
+  border-radius: var(--radius);
+  background: hsl(var(--background) / 0.35);
+}
+
+.settings-page.settings-marseille .settings-xp-points {
+  color: hsl(var(--primary));
+}
+
+.settings-page.settings-marseille .settings-badge-mark {
+  padding: 0.85rem 0.9rem;
+  border: 1px solid hsl(var(--border) / 0.55);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--background) / 0.35);
+}
+
+.settings-page.settings-marseille .settings-badge-mark.is-unlocked {
+  border-color: hsl(var(--primary) / 0.45);
+}
+
+.settings-page.settings-marseille .settings-badge-roman {
+  color: hsl(var(--primary));
+  font-size: 1.35rem;
+}
+
+.settings-page.settings-marseille .settings-avatar {
+  border-radius: var(--radius-lg) !important;
+  border-color: hsl(var(--border) / 0.55);
+  box-shadow: none;
+}
+
+.settings-page.settings-marseille [role="progressbar"] > div {
+  background: hsl(var(--primary)) !important;
+}
+
+.settings-page.settings-marseille .settings-comment-index {
+  color: hsl(var(--primary));
+  font-weight: 600;
+}

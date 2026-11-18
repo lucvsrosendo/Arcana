@@ -1,5 +1,6 @@
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 20;
+const MAX_TRACKED_KEYS = 500;
 
 const memoryBuckets = new Map<string, { count: number; resetAt: number }>();
 
@@ -22,6 +23,9 @@ const checkMemoryRateLimit = (clientKey: string) => {
   const bucket = memoryBuckets.get(clientKey);
 
   if (!bucket || now > bucket.resetAt) {
+    if (!bucket && memoryBuckets.size >= MAX_TRACKED_KEYS) {
+      return true;
+    }
     memoryBuckets.set(clientKey, {
       count: 1,
       resetAt: now + RATE_LIMIT_WINDOW_MS,
@@ -63,12 +67,21 @@ const checkUpstashRateLimit = async (clientKey: string) => {
   return count > RATE_LIMIT_MAX_REQUESTS;
 };
 
+const clipKey = (value: string) => value.replace(/[^\w.:-]/g, "").slice(0, 64) || "unknown";
+
 export const getClientKey = (request: Request) => {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
+  const realIp = request.headers.get("x-real-ip")?.trim();
+  if (realIp) {
+    return clipKey(realIp);
   }
-  return request.headers.get("x-real-ip") ?? "unknown";
+
+  const parts = (request.headers.get("x-forwarded-for") ?? "")
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  // Rightmost hop is the address appended by the platform, not a client-supplied prefix.
+  return clipKey(parts[parts.length - 1] ?? "unknown");
 };
 
 export const isRateLimited = async (request: Request) => {

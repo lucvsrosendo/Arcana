@@ -1,5 +1,301 @@
 /* Marseille editorial reading table — .reading-page scope */
 
+/* ── Marselha shell (aligned with home/learn/arcana) ──────── */
+.reading-page.reading-marseille {
+  --card-shadow-soft: 0 16px 30px -18px rgb(0 0 0 / 0.75);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+:root[data-theme="minimal"] .reading-page.reading-marseille {
+  --card-shadow-soft: 0 12px 24px -16px rgb(0 0 0 / 0.3);
+}
+
+.reading-page.reading-marseille .reading-hero-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin: 0;
+  padding: clamp(1.5rem, 4vw, 2.75rem) 0 1.65rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+  background:
+    radial-gradient(48% 120% at 92% 18%, hsl(var(--primary) / 0.12), transparent 70%);
+  justify-items: stretch;
+  grid-template-columns: none;
+}
+
+.reading-page.reading-marseille .reading-hero-bar::before,
+.reading-page.reading-marseille .reading-hero-bar::after {
+  content: none;
+}
+
+.reading-page.reading-marseille .reading-title-block {
+  max-width: 38rem;
+  text-align: left;
+}
+
+.reading-page.reading-marseille .reading-hero-kicker {
+  margin: 0 0 0.55rem;
+  color: hsl(var(--primary));
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.reading-page.reading-marseille .reading-title-block h1 {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-transform: none;
+  text-shadow: none;
+  text-wrap: balance;
+}
+
+.reading-page.reading-marseille .reading-hero-text {
+  margin: 0.9rem 0 0;
+  max-width: 36rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.reading-page.reading-marseille .reading-hero-actions {
+  justify-content: flex-end;
+}
+
+.reading-page.reading-marseille .reading-new-button {
+  height: 2.65rem !important;
+  border-radius: var(--radius) !important;
+  border: 1px solid hsl(var(--primary) / 0.55) !important;
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--primary) / 0.12) !important;
+  box-shadow: none !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+}
+
+.reading-page.reading-marseille .reading-new-button:hover:not(:disabled) {
+  border-color: hsl(var(--primary) / 0.75) !important;
+  background: hsl(var(--primary) / 0.2) !important;
+  transform: none;
+}
+
+.reading-page.reading-marseille .reading-shell {
+  gap: 1.25rem;
+}
+
+.reading-page.reading-marseille .free-tarot-game.reading-main-panel,
+.reading-page.reading-marseille .reading-rail {
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card) / 0.42);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.reading-page.reading-marseille .reading-rail {
+  background: hsl(var(--card) / 0.42);
+}
+
+.reading-page.reading-marseille .reading-mode-tabs {
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+  padding: 0.85rem clamp(0.95rem, 2vw, 1.35rem) 0;
+  gap: 0.2rem;
+  overflow-x: auto;
+}
+
+.reading-page.reading-marseille .reading-mode-tabs button {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 0.8rem 0.75rem;
+  white-space: nowrap;
+}
+
+.reading-page.reading-marseille .reading-mode-tabs button::after {
+  background: hsl(var(--primary));
+  height: 1px;
+}
+
+.reading-page.reading-marseille .reading-mode-tabs button.is-active,
+.reading-page.reading-marseille .reading-mode-tabs button:hover {
+  color: hsl(var(--foreground));
+}
+
+.reading-page.reading-marseille .reading-stage-header {
+  padding: 1.15rem clamp(0.95rem, 2vw, 1.35rem) 0.35rem;
+}
+
+.reading-page.reading-marseille .reading-stage-label {
+  margin: 0 0 0.45rem;
+  color: hsl(var(--primary));
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.reading-page.reading-marseille .reading-stage-header h2 {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.reading-page.reading-marseille .reading-question-panel {
+  margin: 0.85rem clamp(0.95rem, 2vw, 1.35rem) 1.35rem;
+  padding: 1.1rem 1.15rem 1.2rem;
+  border: 1px solid hsl(var(--border) / 0.65);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--background) / 0.55);
+}
+
+.reading-page.reading-marseille .reading-question-panel label {
+  color: hsl(var(--primary));
+  letter-spacing: 0.14em;
+}
+
+.reading-page.reading-marseille .reading-choose-card-banner {
+  margin: 0 clamp(0.95rem, 2vw, 1.35rem) 0.85rem;
+  color: hsl(var(--foreground) / 0.82);
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  border-color: hsl(var(--border) / 0.55);
+}
+
+.reading-page.reading-marseille .reading-stage {
+  padding: 0.35rem clamp(0.95rem, 2vw, 1.35rem) 1.25rem;
+}
+
+.reading-page.reading-marseille .reading-stage-card img,
+.reading-page.reading-marseille .reading-reveal-image,
+.reading-page.reading-marseille .daily-card-display img {
+  border: 1px solid hsl(var(--border) / 0.45);
+  border-radius: 7px;
+  background: var(--card-paper, #f4ead2);
+  box-shadow: var(--card-shadow-soft);
+}
+
+.reading-page.reading-marseille .reading-stage-slot h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: hsl(var(--foreground));
+}
+
+.reading-page.reading-marseille .reading-slot-position {
+  color: hsl(var(--primary));
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.reading-page.reading-marseille .reading-slot-text {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.reading-page.reading-marseille .reading-deck-drawer {
+  margin: 0 clamp(0.95rem, 2vw, 1.35rem) 1.25rem;
+  padding: 0.85rem 1rem 1rem;
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--background) / 0.35);
+}
+
+.reading-page.reading-marseille .reading-deck-drawer summary {
+  color: hsl(var(--muted-foreground));
+  letter-spacing: 0.12em;
+}
+
+.reading-page.reading-marseille .reading-deck-drawer summary strong {
+  color: hsl(var(--primary));
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.reading-page.reading-marseille .reading-rail-kicker {
+  color: hsl(var(--primary));
+  letter-spacing: 0.16em;
+}
+
+.reading-page.reading-marseille .daily-card-copy h3 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.reading-page.reading-marseille .reading-progress-fraction {
+  font-weight: 500;
+  color: hsl(var(--foreground));
+}
+
+.reading-page.reading-marseille .reading-progress-bar div {
+  background: hsl(var(--primary));
+}
+
+.reading-page.reading-marseille .reading-mode-toggle.is-active {
+  border-color: hsl(var(--primary) / 0.5);
+  background: hsl(var(--primary) / 0.1);
+}
+
+.reading-page.reading-marseille .reading-export-action:hover:not(:disabled) {
+  color: hsl(var(--primary)) !important;
+}
+
+.reading-page.reading-marseille .card-chat-button {
+  border: 1px solid hsl(var(--border) / 0.65);
+  border-radius: var(--radius);
+  background: transparent;
+  color: hsl(var(--foreground));
+  letter-spacing: 0.06em;
+}
+
+.reading-page.reading-marseille .card-chat-button:hover {
+  border-color: hsl(var(--primary) / 0.45);
+  background: hsl(var(--primary) / 0.08);
+}
+
+.reading-page.reading-marseille .chat-panel {
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card) / 0.42);
+  box-shadow: none;
+}
+
+.reading-page.reading-marseille .chat-panel::before {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .reading-page.reading-marseille .reading-hero-bar {
+    display: flex;
+  }
+
+  .reading-page.reading-marseille .reading-title-block {
+    text-align: left;
+  }
+
+  .reading-page.reading-marseille .reading-hero-actions {
+    justify-self: end;
+  }
+}
+
 .reading-page .free-tarot-hero,
 .reading-page .free-tarot-game {
   /* surface polish owned by product-surfaces.css */
@@ -794,4 +1090,68 @@
   .reading-page .reading-reveal-image {
     transition: none;
   }
+}
+
+/* ── Marselha CTAs / slots (cascade after base reading rules) ─ */
+.reading-page.reading-marseille .reading-interpret-button.is-gilt {
+  border: 1px solid hsl(var(--primary) / 0.55) !important;
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--primary) / 0.14) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reading-page.reading-marseille .reading-interpret-button.is-gilt:hover:not(:disabled) {
+  border-color: hsl(var(--primary) / 0.75) !important;
+  background: hsl(var(--primary) / 0.22) !important;
+  box-shadow: none !important;
+  transform: none;
+}
+
+.reading-page.reading-marseille .reading-interpret-button.is-quiet,
+.reading-page.reading-marseille .reading-reset-button {
+  border: 1px solid hsl(var(--border) / 0.7) !important;
+  background: transparent !important;
+  color: hsl(var(--muted-foreground)) !important;
+  box-shadow: none !important;
+}
+
+.reading-page.reading-marseille .reading-interpret-button.is-quiet:hover:not(:disabled),
+.reading-page.reading-marseille .reading-reset-button:hover:not(:disabled) {
+  border-color: hsl(var(--primary) / 0.45) !important;
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--primary) / 0.08) !important;
+}
+
+.reading-page.reading-marseille .reading-question-input {
+  border-color: hsl(var(--border) / 0.7);
+  background: hsl(var(--background) / 0.55);
+  border-radius: var(--radius);
+}
+
+.reading-page.reading-marseille .reading-question-input:focus-visible {
+  border-color: hsl(var(--primary) / 0.55);
+  box-shadow: var(--focus-ring, 0 0 0 3px hsl(var(--primary) / 0.18));
+}
+
+.reading-page.reading-marseille .reading-news-item.is-clickable:hover h3,
+.reading-page.reading-marseille .reading-news-item.is-clickable:focus-visible h3 {
+  color: hsl(var(--primary));
+}
+
+.reading-page.reading-marseille .reading-stage-slot {
+  border-color: hsl(var(--border) / 0.45);
+}
+
+.reading-page.reading-marseille .reading-side-card,
+.reading-page.reading-marseille .daily-card-panel {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.reading-page.reading-marseille .reading-rail-block + .reading-rail-block {
+  border-top: 1px solid hsl(var(--border) / 0.55);
 }

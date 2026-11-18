@@ -1,5 +1,30 @@
 /* Atmosphere — shared ambience, Marseille ornament, shell polish (loaded last) */
 
+/* The card rail is wider than the viewport. Keep that inside the page
+   so it cannot open a horizontal scrollbar on every route. */
+html {
+  overflow-x: clip;
+}
+
+.skip-link {
+  width: max-content;
+  max-width: calc(100% - 1.5rem);
+}
+
+body,
+.app-shell,
+#main-content,
+.home-section,
+.home-rail--marquee {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.home-section--arcana,
+.home-rail--marquee {
+  overflow-x: clip;
+}
+
 /* ── Ambient light + paper grain ──────────────────────────── */
 .theme-root::before {
   content: "";
