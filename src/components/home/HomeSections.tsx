@@ -120,6 +120,47 @@ export function DailyCardFeature({
   );
 }
 
+function ArcanaRailCard({
+  card,
+  openLabel,
+  onOpen,
+  inert,
+}: {
+  card: TarotCard;
+  openLabel: string;
+  onOpen: (cardId: TarotCardId) => void;
+  inert?: boolean;
+}) {
+  return (
+    <li className="home-rail__item">
+      <button
+        type="button"
+        className="home-rail__card"
+        aria-label={inert ? undefined : `${openLabel}: ${card.name}`}
+        tabIndex={inert ? -1 : undefined}
+        onClick={() => onOpen(card.id)}
+      >
+        <span className="home-rail__numeral" aria-hidden="true">
+          {getMarseilleNumeral(card.number)}
+        </span>
+        <span className="home-rail__frame">
+          <ArcanaCardImage
+            cardId={card.id}
+            src={card.image}
+            name={card.name}
+            number={card.number}
+            artwork={card.artwork}
+            alt=""
+            className="home-rail__image"
+            sizes="132px"
+          />
+        </span>
+        <span className="home-rail__name">{card.name}</span>
+      </button>
+    </li>
+  );
+}
+
 export function ArcanaRail({
   cards,
   openLabel,
@@ -130,33 +171,24 @@ export function ArcanaRail({
   onOpen: (cardId: TarotCardId) => void;
 }) {
   return (
-    <ol className="home-rail" aria-label={openLabel}>
-      {cards.map((card) => (
-        <li key={card.id} className="home-rail__item">
-          <button
-            type="button"
-            className="home-rail__card"
-            aria-label={`${openLabel}: ${card.name}`}
-            onClick={() => onOpen(card.id)}
-          >
-            <span className="home-rail__numeral" aria-hidden="true">
-              {getMarseilleNumeral(card.number)}
-            </span>
-            <ArcanaCardImage
-              cardId={card.id}
-              src={card.image}
-              name={card.name}
-              number={card.number}
-              artwork={card.artwork}
-              alt=""
-              className="home-rail__image"
-              sizes="132px"
-            />
-            <span className="home-rail__name">{card.name}</span>
-          </button>
-        </li>
-      ))}
-    </ol>
+    <div className="home-rail home-rail--marquee" role="region" aria-label={openLabel}>
+      <ul className="home-rail__track">
+        {cards.map((card) => (
+          <ArcanaRailCard key={card.id} card={card} openLabel={openLabel} onOpen={onOpen} />
+        ))}
+      </ul>
+      <ul className="home-rail__track home-rail__track--clone" aria-hidden="true" inert>
+        {cards.map((card) => (
+          <ArcanaRailCard
+            key={`${card.id}-clone`}
+            card={card}
+            openLabel={openLabel}
+            onOpen={onOpen}
+            inert
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
 

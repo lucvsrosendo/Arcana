@@ -8847,4 +8847,20 @@ main > * {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
   }
+
+  /* Home arcana rail: keep continuous scroll + hover zoom even when
+     Windows "visual effects" flips prefers-reduced-motion on. */
+  .home-rail--marquee,
+  .home-rail--marquee *,
+  .home-rail--marquee *::before,
+  .home-rail--marquee *::after {
+    transition-duration: 480ms !important;
+    animation-duration: unset !important;
+    animation-iteration-count: unset !important;
+  }
+
+  .home-rail--marquee .home-rail__track {
+    animation-duration: 64s !important;
+    animation-iteration-count: infinite !important;
+  }
 }

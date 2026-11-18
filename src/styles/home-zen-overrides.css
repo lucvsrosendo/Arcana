@@ -572,18 +572,55 @@
 
 /* ── Rail of the 22 ───────────────────────────────────────── */
 .home-rail {
-  --rail-gutter: max(1.25rem, calc((100% - 76rem) / 2));
-  display: flex;
-  gap: 1.1rem;
+  --rail-gap: 1.15rem;
+  --rail-card: 8.25rem;
   margin: 0;
-  padding: 0.75rem var(--rail-gutter) 1.75rem;
+}
+
+.home-rail--marquee {
+  display: flex;
+  overflow: hidden;
+  padding: 1.35rem 0 2.1rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 3.5%,
+    #000 96.5%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 3.5%,
+    #000 96.5%,
+    transparent
+  );
+}
+
+.home-rail__track {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--rail-gap);
+  margin: 0;
+  padding-inline: calc(var(--rail-gap) / 2);
   list-style: none;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: var(--rail-gutter);
-  scrollbar-width: thin;
-  scrollbar-color: hsl(var(--border)) transparent;
+  width: max-content;
+  animation: home-rail-marquee 64s linear infinite;
+  will-change: transform;
+}
+
+.home-rail--marquee:hover .home-rail__track,
+.home-rail--marquee:focus-within .home-rail__track {
+  animation-play-state: paused;
+}
+
+@keyframes home-rail-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% - var(--rail-gap)), 0, 0);
+  }
 }
 
 .home-rail__item {
@@ -592,15 +629,18 @@
 }
 
 .home-rail__card {
+  position: relative;
+  z-index: 0;
   display: grid;
-  gap: 0.6rem;
-  width: 8.25rem;
+  gap: 0.55rem;
+  width: var(--rail-card);
   padding: 0;
   border: 0;
   background: none;
   color: inherit;
   text-align: left;
   cursor: pointer;
+  isolation: isolate;
 }
 
 .home-rail__numeral {
@@ -609,7 +649,20 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   color: hsl(var(--muted-foreground));
-  transition: color 240ms var(--ease-ritual);
+  transition:
+    color 240ms var(--ease-ritual),
+    transform 420ms var(--ease-out-expo);
+  transform-origin: left center;
+}
+
+.home-rail__frame {
+  display: block;
+  border-radius: 6px;
+  transform-origin: center bottom;
+  transition:
+    transform 480ms var(--ease-out-expo),
+    filter 320ms var(--ease-ritual);
+  will-change: transform;
 }
 
 .home-rail__image {
@@ -621,29 +674,50 @@
   border-radius: 6px;
   background: var(--card-paper);
   box-shadow: var(--card-shadow-soft);
-  transition:
-    translate 420ms var(--ease-out-expo),
-    box-shadow 320ms var(--ease-ritual);
+  transition: box-shadow 320ms var(--ease-ritual);
 }
 
 .home-rail__name {
   font-size: 0.8rem;
   line-height: 1.35;
   color: hsl(var(--muted-foreground));
-  transition: color 240ms var(--ease-ritual);
+  transition:
+    color 240ms var(--ease-ritual),
+    opacity 240ms var(--ease-ritual);
 }
 
-.home-rail__card:hover .home-rail__image {
-  translate: 0 -6px;
-  box-shadow: var(--card-shadow-soft), 0 0 0 1px hsl(var(--primary) / 0.7);
+.home-rail__card:hover,
+.home-rail__card:focus-visible {
+  z-index: 3;
 }
 
-.home-rail__card:hover .home-rail__numeral {
+.home-rail__card:hover .home-rail__frame,
+.home-rail__card:focus-visible .home-rail__frame {
+  transform: translate3d(0, -10px, 0) scale(1.22);
+  filter: drop-shadow(0 18px 28px rgb(0 0 0 / 0.55));
+}
+
+.home-rail__card:hover .home-rail__image,
+.home-rail__card:focus-visible .home-rail__image {
+  box-shadow:
+    var(--card-shadow-soft),
+    0 0 0 1px hsl(var(--primary) / 0.72);
+}
+
+.home-rail__card:hover .home-rail__numeral,
+.home-rail__card:focus-visible .home-rail__numeral {
   color: hsl(var(--primary));
+  transform: translate3d(0, -2px, 0);
 }
 
-.home-rail__card:hover .home-rail__name {
+.home-rail__card:hover .home-rail__name,
+.home-rail__card:focus-visible .home-rail__name {
   color: hsl(var(--foreground));
+}
+
+.home-rail__card:active .home-rail__frame {
+  transform: translate3d(0, -6px, 0) scale(1.14);
+  transition-duration: 160ms;
 }
 
 .home-rail__card:focus-visible {
@@ -1015,7 +1089,6 @@
   .home-hero-card,
   .home-daily__flip,
   .home-daily__face,
-  .home-rail__image,
   .home-spread,
   .home-spread__slot,
   .home-news-item__media img,
@@ -1023,12 +1096,20 @@
     transition: none;
   }
 
+  /* Rail keeps marquee + hover zoom: Windows often sets
+     prefers-reduced-motion via "visual effects", which would
+     otherwise kill the whole interaction the section is for. */
+  .home-rail__track {
+    animation-duration: 96s;
+  }
+
   .home-hero__stage:hover .home-hero-card,
   .home-daily:hover .home-daily__flip,
-  .home-rail__card:hover .home-rail__image,
   .home-spread:hover,
   .home-spread:hover .home-spread__slot {
     translate: none;
+    transform: none;
     scale: none;
+    filter: none;
   }
 }
