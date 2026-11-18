@@ -7,7 +7,7 @@
 3. Push migrations: `supabase db push`
 4. Set secrets:
    ```bash
-   supabase secrets set GROQ_API_KEY=gsk_... GROQ_MODEL_FAST=llama-3.1-8b-instant GROQ_MODEL_DEEP=llama-3.3-70b-versatile
+   supabase secrets set GROQ_API_KEY=gsk_... GROQ_MODEL_FAST=openai/gpt-oss-20b GROQ_MODEL_DEEP=openai/gpt-oss-120b
    ```
 5. Travar CORS no dominio de producao:
    ```bash

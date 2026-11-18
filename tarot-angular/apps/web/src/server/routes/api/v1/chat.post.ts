@@ -108,10 +108,10 @@ const buildGroqMessages = (context: TarotChatContext, messages: ChatMessage[]) =
 
 const getChatModel = (context: TarotChatContext & { deepMode?: boolean }) => {
   if (context.deepMode) {
-    return process.env.GROQ_MODEL_DEEP ?? process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile";
+    return process.env.GROQ_MODEL_DEEP ?? process.env.GROQ_MODEL ?? "openai/gpt-oss-120b";
   }
 
-  return process.env.GROQ_MODEL_FAST ?? process.env.GROQ_MODEL ?? "llama-3.1-8b-instant";
+  return process.env.GROQ_MODEL_FAST ?? process.env.GROQ_MODEL ?? "openai/gpt-oss-20b";
 };
 
 const getMaxTokens = (context: TarotChatContext & { deepMode?: boolean }) =>

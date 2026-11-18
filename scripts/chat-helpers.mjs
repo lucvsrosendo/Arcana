@@ -189,14 +189,14 @@ export const getChatModel = (context) => {
     return (
       process.env.GROQ_MODEL_DEEP ??
       process.env.GROQ_MODEL ??
-      "llama-3.3-70b-versatile"
+      "openai/gpt-oss-120b"
     );
   }
 
   return (
     process.env.GROQ_MODEL_FAST ??
     process.env.GROQ_MODEL ??
-    "llama-3.1-8b-instant"
+    "openai/gpt-oss-20b"
   );
 };
 
@@ -232,4 +232,4 @@ export const buildCardInsightUserMessage = (payload) =>
 export const getCardInsightMaxTokens = () => 160;
 
 export const getCardInsightModel = () =>
-  process.env.GROQ_MODEL_FAST ?? process.env.GROQ_MODEL ?? "llama-3.1-8b-instant";
+  process.env.GROQ_MODEL_FAST ?? process.env.GROQ_MODEL ?? "openai/gpt-oss-20b";
