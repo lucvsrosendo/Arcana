@@ -177,7 +177,7 @@ export function ArcanaRail({
           <ArcanaRailCard key={card.id} card={card} openLabel={openLabel} onOpen={onOpen} />
         ))}
       </ul>
-      <ul className="home-rail__track home-rail__track--clone" aria-hidden="true" inert>
+      <ul className="home-rail__track home-rail__track--clone" aria-hidden="true">
         {cards.map((card) => (
           <ArcanaRailCard
             key={`${card.id}-clone`}
